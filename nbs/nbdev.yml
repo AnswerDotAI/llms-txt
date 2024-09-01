@@ -1,0 +1,9 @@
+project:
+  output-dir: _docs
+
+website:
+  title: "llms-txt"
+  site-url: "https://AnswerDotAI.github.io/llms-txt"
+  description: "The /llms.txt file, helping language models use your website"
+  repo-branch: main
+  repo-url: "https://github.com/AnswerDotAI/llms-txt"
