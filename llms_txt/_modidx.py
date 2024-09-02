@@ -2,7 +2,7 @@
 
 d = { 'settings': { 'branch': 'main',
                 'doc_baseurl': '/llms-txt',
-                'doc_host': 'https://AnswerDotAI.github.io',
+                'doc_host': 'https://llmstxt.org',
                 'git_url': 'https://github.com/AnswerDotAI/llms-txt',
                 'lib_path': 'llms_txt'},
   'syms': { 'llms_txt.core': { 'llms_txt.core.Doc': ('core.html#doc', 'llms_txt/core.py'),

@@ -22,7 +22,7 @@ website:
   twitter-card:
     creator: "@jeremyphoward"
     site: "@answerdotai"
-    image: https://llmstxt.org/logo.png
+    image: https://llmstxt.org/sample.png
   navbar:
     background: primary
     search: true

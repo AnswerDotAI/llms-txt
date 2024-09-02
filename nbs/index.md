@@ -19,7 +19,9 @@ llms.txt markdown is human and LLM readable, but is also in a precise format all
 
 We furthermore propose that pages on websites that have information that might be useful for LLMs to read provide a clean markdown version of those pages at the same URL as the original page, but with `.md` appended. (URLs without file names should append `index.html.md` instead.)
 
-The [FastHTML project](https://fastht.ml) follows these two proposals for its documentation. For instance, here is the [FastHTML docs llms.txt](https://docs.fastht.ml/llms.txt). And here is an example of a [regular HTML docs page](https://docs.fastht.ml/tutorials/by_example.html), along with exact same URL but with [a .md extension](https://docs.fastht.ml/tutorials/by_example.html.md). Note that all [nbdev](https://nbdev.fast.ai/) projects now create .md versions of all pages by default, and all Answer.AI and fast.ai software projects using nbdev have had their docs regenerated with this feature -- for instance, see the [markdown version](https://fastcore.fast.ai/docments.html.md) of [fastcore's docments module](https://fastcore.fast.ai/docments.html).
+The [FastHTML project](https://fastht.ml) follows these two proposals for its documentation. For instance, here is the [FastHTML docs llms.txt](https://docs.fastht.ml/llms.txt). And here is an example of a [regular HTML docs page](https://docs.fastht.ml/tutorials/by_example.html), along with exact same URL but with [a .md extension](https://docs.fastht.ml/tutorials/by_example.html.md). Note that all [nbdev](https://nbdev.fast.ai/) projects now create .md versions of all pages by default, and all Answer.AI and fast.ai software projects using nbdev have had their docs regenerated with this feature---for instance, see the [markdown version](https://fastcore.fast.ai/docments.html.md) of [fastcore's docments module](https://fastcore.fast.ai/docments.html).
+
+This proposal does not include any particular recommendation for how to process the file, since it will depend on the application. For example, FastHTML automatically builds a new version of two markdown files including the contents of the linked URLs, using an XML-based structure suitable for use in LLMs such as Claude. The two files are: [llms-ctx.txt](https://docs.fastht.ml/llms-ctx.txt), which does not include the optional URLs, and [llms-ctx-full.txt](https://docs.fastht.ml/llms-ctx-full.txt), which does include them. They are created using the [`llms_txt2ctx`](https://llmstxt.org/intro.html#cli) command line application.
 
 llms.txt files can be used in various scenarios. For software libraries, they can provide a structured overview of documentation, making it easier for LLMs to locate specific features or usage examples. In corporate websites, they can outline organizational structure and key information sources. Information about new legislation and necessary background and context could be curated in an llms.txt file to help stakeholders understand it.
 
@@ -57,7 +59,7 @@ Optional details go here
 - [Link title](https://link_url)
 ```
 
-Note that the "Optional" section has a special meaning -- if it's included, the URLs provided there can be skipped if a shorter context is needed. Use it for secondary information which can often be skipped.
+Note that the "Optional" section has a special meaning---if it's included, the URLs provided there can be skipped if a shorter context is needed. Use it for secondary information which can often be skipped.
 
 ## Existing standards
 
