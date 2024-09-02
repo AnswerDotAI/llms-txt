@@ -2,7 +2,7 @@
 title: "The /llms.txt file"
 author: "Jeremy Howard"
 description: "A proposal to standardise on using an `/llms.txt` file to provide information to help LLMs use a website."
-image: "/logo.png"
+image: "/sample.png"
 ---
 
 ## Background
