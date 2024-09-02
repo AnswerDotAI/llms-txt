@@ -15,9 +15,9 @@ Providing information for language models is a little different to providing inf
 
 ![llms.txt logo](logo.png){.lightbox width=150px .floatr}
 
-We propose that those interested in providing LLM-friendly content add a `/llms.txt` file to their site. This is a markdown file that provides brief background information and guidance, along with links to markdown files (which can also link to external sites) providing more detailed information. This can be used, for instance, in order to provide information necessary for coders to use a library, or as part of research to learn about a person or organization and so forth. You are free to use the llms.txt logo on your site to indicate your support if you wish.
+We propose that those interested in providing LLM-friendly content add a `/llms.txt` file to their site. This is a markdown file that provides brief background information and guidance, along with links to markdown files (which can also link to external sites) providing more detailed information. This can be used, for instance, in order to provide information necessary for coders to use a library, or as part of research to learn about a person or organization and so forth. You are free to use the `llms.txt` logo on your site to indicate your support if you wish.
 
-llms.txt markdown is human and LLM readable, but is also in a precise format allowing fixed processing methods (i.e. classical programming techniques such as parsers and regex). For instance, there is an [llms-txt](https://answerdotai.github.io/llms-txt/intro.html) project providing a CLI and Python module for parsing llms.txt files and generating LLM context from them.
+llms.txt markdown is human and LLM readable, but is also in a precise format allowing fixed processing methods (i.e. classical programming techniques such as parsers and regex). For instance, there is an [llms-txt](https://answerdotai.github.io/llms-txt/intro.html) project providing a CLI and Python module for parsing `llms.txt` files and generating LLM context from them.
 
 We furthermore propose that pages on websites that have information that might be useful for LLMs to read provide a clean markdown version of those pages at the same URL as the original page, but with `.md` appended. (URLs without file names should append `index.html.md` instead.)
 
@@ -25,7 +25,7 @@ The [FastHTML project](https://fastht.ml) follows these two proposals for its do
 
 This proposal does not include any particular recommendation for how to process the file, since it will depend on the application. For example, FastHTML automatically builds a new version of two markdown files including the contents of the linked URLs, using an XML-based structure suitable for use in LLMs such as Claude. The two files are: [llms-ctx.txt](https://docs.fastht.ml/llms-ctx.txt), which does not include the optional URLs, and [llms-ctx-full.txt](https://docs.fastht.ml/llms-ctx-full.txt), which does include them. They are created using the [`llms_txt2ctx`](https://llmstxt.org/intro.html#cli) command line application.
 
-llms.txt files can be used in various scenarios. For software libraries, they can provide a structured overview of documentation, making it easier for LLMs to locate specific features or usage examples. In corporate websites, they can outline organizational structure and key information sources. Information about new legislation and necessary background and context could be curated in an llms.txt file to help stakeholders understand it.
+llms.txt files can be used in various scenarios. For software libraries, they can provide a structured overview of documentation, making it easier for LLMs to locate specific features or usage examples. In corporate websites, they can outline organizational structure and key information sources. Information about new legislation and necessary background and context could be curated in an `llms.txt` file to help stakeholders understand it.
 
 llms.txt files can be adapted for various domains. Personal portfolio or CV websites could use them to help answer questions about an individual. In e-commerce, they could outline product categories and policies. Educational institutions might use them to summarize course offerings and resources.
 
@@ -33,9 +33,9 @@ llms.txt files can be adapted for various domains. Personal portfolio or CV webs
 
 At the moment the most widely and easily understood format for language models is Markdown. Simply showing where key Markdown files can be found is a great first step. Providing some basic structure helps a language model to find where the information it needs can come from.
 
-The llms.txt file is unusual in that it uses Markdown to structure the information rather than a classic structured format such as XML. The reason for this is that we expect many of these files to be read by language models and agents. Having said that, the information in llms.txt follows a specific format and can be read using standard programmatic-based tools.
+The `llms.txt` file is unusual in that it uses Markdown to structure the information rather than a classic structured format such as XML. The reason for this is that we expect many of these files to be read by language models and agents. Having said that, the information in `llms.txt` follows a specific format and can be read using standard programmatic-based tools.
 
-The llms.txt file spec is for files located in the root path `/llms.txt` of a website (or, optionally, in a subpath). A file following the spec contains the following sections as markdown, in the specific order:
+The `llms.txt` file spec is for files located in the root path `/llms.txt` of a website (or, optionally, in a subpath). A file following the spec contains the following sections as markdown, in the specific order:
 
 - An H1 with the name of the project or site. This is the only required section
 - A blockquote with a short summary of the project, containing key information necessary for understanding the rest of the file
@@ -65,11 +65,11 @@ Note that the "Optional" section has a special meaning---if it's included, the U
 
 ## Existing standards
 
-llms.txt is designed to coexist with current web standards. While sitemaps list all pages for search engines, llms.txt offers a curated overview for LLMs. It can complement robots.txt by providing context for allowed content. The file can also reference structured data markup used on the site, helping LLMs understand how to interpret this information in context.
+llms.txt is designed to coexist with current web standards. While sitemaps list all pages for search engines, `llms.txt` offers a curated overview for LLMs. It can complement robots.txt by providing context for allowed content. The file can also reference structured data markup used on the site, helping LLMs understand how to interpret this information in context.
 
-The approach of standardising on a path for the file follows the approach of `/robots.txt` and `/sitemap.xml`. robots.txt and llms.txt have different purposes---robots.txt is generally used to let automated tools what access to a site is considered acceptable, such as for search indexing bots. On the other hand, llms.txt information will often be used on demand when a user explicitly requesting information about a topic, such as when including a coding library's documentation in a project, or when asking a chat bot with search functiontionality for information. Our expectation is that llms.txt will mainly be useful for *inference*, i.e. at the time a user is seeking assistance, as opposed to for *training*. However, perhaps if llms.txt usage becomes widespread, future training runs could take advantage of the information in llms.txt files too.
+The approach of standardising on a path for the file follows the approach of `/robots.txt` and `/sitemap.xml`. robots.txt and `llms.txt` have different purposes---robots.txt is generally used to let automated tools what access to a site is considered acceptable, such as for search indexing bots. On the other hand, `llms.txt` information will often be used on demand when a user explicitly requesting information about a topic, such as when including a coding library's documentation in a project, or when asking a chat bot with search functiontionality for information. Our expectation is that `llms.txt` will mainly be useful for *inference*, i.e. at the time a user is seeking assistance, as opposed to for *training*. However, perhaps if `llms.txt` usage becomes widespread, future training runs could take advantage of the information in `llms.txt` files too.
 
-sitemap.xml is a list of all the indexable human-readable information available on a site. This isn’t a substitute for llms.txt since it:
+sitemap.xml is a list of all the indexable human-readable information available on a site. This isn’t a substitute for `llms.txt` since it:
 
 - Often won’t have the LLM-readable versions of pages listed
 - Doesn’t include URLs to external sites, even although they might be helpful to understand the information
@@ -77,7 +77,7 @@ sitemap.xml is a list of all the indexable human-readable information available 
 
 ## Example
 
-Here’s an example of llms.txt, in this case a cut down version of the file used for the FastHTML project:
+Here’s an example of `llms.txt`, in this case a cut down version of the file used for the FastHTML project:
 
 ```markdown
 # FastHTML
@@ -103,9 +103,9 @@ Important notes:
 - [Starlette full documentation](https://gist.githubusercontent.com/jph00/starlette-sml.md): A subset of the Starlette documentation useful for FastHTML development.
 ```
 
-To create effective llms.txt files, consider these guidelines: Use concise, clear language. When linking to resources, include brief, informative descriptions. Avoid ambiguous terms or unexplained jargon. Run a tool that expands your llms.txt file into an LLM context file and test a number of language models to see if they can answer questions about your content.
+To create effective `llms.txt` files, consider these guidelines: Use concise, clear language. When linking to resources, include brief, informative descriptions. Avoid ambiguous terms or unexplained jargon. Run a tool that expands your `llms.txt` file into an LLM context file and test a number of language models to see if they can answer questions about your content.
 
 ## Next steps
 
-The llms.txt specification is open for community input. A [GitHub repository](https://github.com/AnswerDotAI/llms-txt) hosts [this informal overview](https://github.com/AnswerDotAI/llms-txt/blob/main/nbs/index.md), allowing for version control and public discussion. A community discord channel is available for sharing implementation experiences and discussing best practices.
+The `llms.txt` specification is open for community input. A [GitHub repository](https://github.com/AnswerDotAI/llms-txt) hosts [this informal overview](https://github.com/AnswerDotAI/llms-txt/blob/main/nbs/index.md), allowing for version control and public discussion. A community discord channel is available for sharing implementation experiences and discussing best practices.
 
