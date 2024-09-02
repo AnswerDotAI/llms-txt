@@ -1,5 +1,10 @@
 project:
   type: website
+  resources: 
+    - "*.txt"
+  preview:
+    navigate: false
+    port: 3000
 
 format:
   html:
@@ -11,13 +16,24 @@ format:
   commonmark: default
 
 website:
-  twitter-card: true
+  favicon: favicon.ico
   open-graph: true
   repo-actions: [issue]
+  twitter-card:
+    creator: "@jeremyphoward"
+    site: "@answerdotai"
+    image: https://llmstxt.org/logo.png
   navbar:
     background: primary
     search: true
+    right:
+      - icon: github
+        href: "https://github.com/answerdotai/llms-txt"
+      - icon: twitter
+        href: https://x.com/answerdotai
+        aria-label: Fast.ai Twitter
   sidebar:
     style: floating
 
 metadata-files: [nbdev.yml, sidebar.yml]
+
