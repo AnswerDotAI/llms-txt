@@ -48,3 +48,15 @@ div.description {
   width: 100%;
 }
 
+.quarto-figure:has(img.floatl) {
+  float: left;
+  margin-right: 1rem;
+  margin-bottom: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.quarto-figure:has(img.floatl) figcaption {
+  text-align: center;
+  width: 100%;
+}
+
