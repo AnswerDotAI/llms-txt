@@ -3,7 +3,7 @@ project:
 
 website:
   title: "llms-txt"
-  site-url: "https://llmstxt.org/llms-txt"
+  site-url: "https://llmstxt.org/"
   description: "The /llms.txt file, helping language models use your website"
   repo-branch: main
   repo-url: "https://github.com/AnswerDotAI/llms-txt"
