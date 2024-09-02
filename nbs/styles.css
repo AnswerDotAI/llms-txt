@@ -35,3 +35,16 @@ div.description {
   font-size: 135%;
   opacity: 70%;
 }
+
+.quarto-figure:has(img.floatr) {
+  float:right;
+  margin-left: 1rem;
+  margin-bottom: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.quarto-figure:has(img.floatr) figcaption {
+  text-align: center;
+  width: 100%;
+}
+
