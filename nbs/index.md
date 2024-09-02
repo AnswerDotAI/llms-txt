@@ -23,7 +23,7 @@ We furthermore propose that pages on websites that have information that might b
 
 The [FastHTML project](https://fastht.ml) follows these two proposals for its documentation. For instance, here is the [FastHTML docs llms.txt](https://docs.fastht.ml/llms.txt). And here is an example of a [regular HTML docs page](https://docs.fastht.ml/tutorials/by_example.html), along with exact same URL but with [a .md extension](https://docs.fastht.ml/tutorials/by_example.html.md). Note that all [nbdev](https://nbdev.fast.ai/) projects now create .md versions of all pages by default, and all Answer.AI and fast.ai software projects using nbdev have had their docs regenerated with this feature---for instance, see the [markdown version](https://fastcore.fast.ai/docments.html.md) of [fastcore's docments module](https://fastcore.fast.ai/docments.html).
 
-This proposal does not include any particular recommendation for how to process the file, since it will depend on the application. For example, FastHTML automatically builds a new version of two markdown files including the contents of the linked URLs, using an XML-based structure suitable for use in LLMs such as Claude. The two files are: [llms-ctx.txt](https://docs.fastht.ml/llms-ctx.txt), which does not include the optional URLs, and [llms-ctx-full.txt](https://docs.fastht.ml/llms-ctx-full.txt), which does include them. They are created using the [`llms_txt2ctx`](https://llmstxt.org/intro.html#cli) command line application.
+This proposal does not include any particular recommendation for how to process the file, since it will depend on the application. For example, FastHTML automatically builds a new version of two markdown files including the contents of the linked URLs, using an XML-based structure suitable for use in LLMs such as Claude. The two files are: [llms-ctx.txt](https://docs.fastht.ml/llms-ctx.txt), which does not include the optional URLs, and [llms-ctx-full.txt](https://docs.fastht.ml/llms-ctx-full.txt), which does include them. They are created using the [`llms_txt2ctx`](https://llmstxt.org/intro.html#cli) command line application, and the FastHTML documentation includes information for users about how to use them.
 
 llms.txt files can be used in various scenarios. For software libraries, they can provide a structured overview of documentation, making it easier for LLMs to locate specific features or usage examples. In corporate websites, they can outline organizational structure and key information sources. Information about new legislation and necessary background and context could be curated in an `llms.txt` file to help stakeholders understand it.
 
@@ -77,7 +77,7 @@ sitemap.xml is a list of all the indexable human-readable information available 
 
 ## Example
 
-Here’s an example of `llms.txt`, in this case a cut down version of the file used for the FastHTML project:
+Here’s an example of `llms.txt`, in this case a cut down version of the file used for the FastHTML project (see also the [full version](https://docs.fastht.ml/llms.txt):
 
 ```markdown
 # FastHTML
@@ -91,16 +91,16 @@ Important notes:
 
 ## Docs
 
-- [FastHTML quick start](https://docs.fastht.ml/tutorials/quickstart_for_web_devs.html.md): A brief overview of many FastHTML features
-- [HTMX reference](https://raw.githubusercontent.com/bigskysoftware/reference.md): Brief description of all HTMX attributes, CSS classes, headers, events, extensions, js lib methods, and config options
+- [FastHTML quick start](https://docs.fastht.ml/path/quickstart.html.md): A brief overview of many FastHTML features
+- [HTMX reference](https://raw.githubusercontent.com/path/reference.md): Brief description of all HTMX attributes, CSS classes, headers, events, extensions, js lib methods, and config options
 
 ## Examples
 
-- [Todo list application](https://raw.githubusercontent.com/AnswerDotAI/fasthtml/adv_app.py): Detailed walk-thru of a complete CRUD app in FastHTML showing idiomatic use of FastHTML and HTMX patterns.
+- [Todo list application](https://raw.githubusercontent.com/path/adv_app.py): Detailed walk-thru of a complete CRUD app in FastHTML showing idiomatic use of FastHTML and HTMX patterns.
 
 ## Optional
 
-- [Starlette full documentation](https://gist.githubusercontent.com/jph00/starlette-sml.md): A subset of the Starlette documentation useful for FastHTML development.
+- [Starlette full documentation](https://gist.githubusercontent.com/path/starlette-sml.md): A subset of the Starlette documentation useful for FastHTML development.
 ```
 
 To create effective `llms.txt` files, consider these guidelines: Use concise, clear language. When linking to resources, include brief, informative descriptions. Avoid ambiguous terms or unexplained jargon. Run a tool that expands your `llms.txt` file into an LLM context file and test a number of language models to see if they can answer questions about your content.
