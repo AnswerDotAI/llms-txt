@@ -12,7 +12,7 @@ $ ed
 Our user starts `ed` and enables helpful error messages (just for the purpose of this walkthru - obviously a real `ed` user doesn't need "helpful error messages").
 
 ```sh
-* l docs.fastht.ml
+* L docs.fastht.ml
 Checking for /llms.txt at docs.fastht.ml...
 Found /llms.txt. Parsing...
 Fetching URLs from "Docs" section...  Fetching URLs from "Examples" section...
@@ -20,7 +20,7 @@ Skipping "Optional" section for brevity.
 Creating XML-based context for Claude...  Context created and loaded.
 ```
 
-The user invokes the hypothetical `l` (load) command, which in this LLM-enhanced version of `ed` retrieves and processes the `llms.txt` file. `ed` checks for the file (if it didn't exist, it would fall back to scraping the HTML of the website the old-fashioned way), parses it, fetches the relevant URLs, and creates an XML-based context suitable for Claude (perhaps an `ed` config file could be used to choose what LLM to use, and would determine how the context is formatted). All of this happens with the characteristic silence of `ed`, broken only by these reassuring progress messages.
+The user invokes the hypothetical `L` (load) command, which in this LLM-enhanced version of `ed` retrieves and processes the `llms.txt` file. `ed` checks for the file (if it didn't exist, it would fall back to scraping the HTML of the website the old-fashioned way), parses it, fetches the relevant URLs, and creates an XML-based context suitable for Claude (perhaps an `ed` config file could be used to choose what LLM to use, and would determine how the context is formatted). All of this happens with the characteristic silence of `ed`, broken only by these reassuring progress messages.
 
 ```sh
 * x Create a simple FastHTML app which outputs 'Hello, World!', in a <div>.
