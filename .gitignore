@@ -6,7 +6,6 @@ posts/
 *.db
 .gitattributes
 _proc/
-sidebar.yml
 Gemfile.lock
 token
 _docs/
