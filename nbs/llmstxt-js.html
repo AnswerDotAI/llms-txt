@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>llms.txt Parser in JavaScript</title>
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; padding: 20px; }
+        pre { background-color: #f4f4f4; padding: 10px; border-radius: 5px; overflow-x: auto; }
+        h2 { margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <h1>llms.txt Parser in JavaScript</h1>
+    <p>This page demonstrates a JavaScript implementation of the llms.txt parser. View the source to see the JavaScript being run here. When you're done, you can <a href="/">return home</a>.</p>
+
+    <h2>Input:</h2>
+    <pre id="input"></pre>
+
+    <h2>Parser Output:</h2>
+    <pre id="output"></pre>
+
+    <script>
+        function parseLLMsTxt(txt) {
+            function parseLinks(links) {
+                const linkPat = /-\s*\[(?<title>[^\]]+)\]\((?<url>[^\)]+)\)(?::\s*(?<desc>.*?))?$/gm;
+                return Array.from(links.matchAll(linkPat)).map(match => match.groups);
+            }
+
+            const [start, ...rest] = txt.split(/^##\s*(.*?)$/m);
+            const sections = Object.fromEntries(
+                Array.from({ length: Math.floor(rest.length / 2) }, (_, i) => [
+                    rest[i * 2],
+                    parseLinks(rest[i * 2 + 1])
+                ])
+            );
+
+            const pat = /^#\s*(?<title>.+?$)\n+(?:^>\s*(?<summary>.+?$))?\n+(?<info>.*)/ms;
+            const match = start.trim().match(pat);
+            const result = { ...match.groups, sections };
+
+            return result;
+        }
+
+        // Test input
+        const testInput = `# Title
+
+> Optional description goes here
+
+Optional details go here
+
+## Section name
+
+- [Link title](https://link_url): Optional link details
+
+## Optional
+
+- [Link title](https://link_url)`;
+
+        // Display input
+        document.getElementById('input').textContent = testInput;
+
+        // Parse and display output
+        const result = parseLLMsTxt(testInput);
+        document.getElementById('output').textContent = JSON.stringify(result, null, 2);
+    </script>
+</body>
+</html>

@@ -2,6 +2,7 @@ project:
   type: website
   resources: 
     - "*.txt"
+    - "*.html"
   preview:
     navigate: false
     port: 3000

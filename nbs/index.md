@@ -1,5 +1,6 @@
 ---
 title: "The /llms.txt file"
+date: 2024-09-03
 author: "Jeremy Howard"
 description: "A proposal to standardise on using an `/llms.txt` file to provide information to help LLMs use a website."
 image: "/sample.png"
@@ -17,7 +18,7 @@ Providing information for language models is a little different to providing inf
 
 We propose that those interested in providing LLM-friendly content add a `/llms.txt` file to their site. This is a markdown file that provides brief background information and guidance, along with links to markdown files (which can also link to external sites) providing more detailed information. This can be used, for instance, in order to provide information necessary for coders to use a library, or as part of research to learn about a person or organization and so forth. You are free to use the `llms.txt` logo on your site to indicate your support if you wish.
 
-llms.txt markdown is human and LLM readable, but is also in a precise format allowing fixed processing methods (i.e. classical programming techniques such as parsers and regex). For instance, there is an [llms-txt](https://answerdotai.github.io/llms-txt/intro.html) project providing a CLI and Python module for parsing `llms.txt` files and generating LLM context from them.
+llms.txt markdown is human and LLM readable, but is also in a precise format allowing fixed processing methods (i.e. classical programming techniques such as parsers and regex). For instance, there is an [llms-txt](/intro.html) project providing a CLI and Python module for parsing `llms.txt` files and generating LLM context from them. There is also a [sample JavaScript](/llmstxt-js.html) implementation.
 
 We furthermore propose that pages on websites that have information that might be useful for LLMs to read provide a clean markdown version of those pages at the same URL as the original page, but with `.md` appended. (URLs without file names should append `index.html.md` instead.)
 

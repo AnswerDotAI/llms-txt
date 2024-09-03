@@ -1,14 +1,6 @@
-.cell {
-  margin-bottom: 1rem;
-}
-
-.cell > .sourceCode {
-  margin-bottom: 0;
-}
-
-.cell-output > pre {
-  margin-bottom: 0;
-}
+.cell { margin-bottom: 1rem; }
+.cell > .sourceCode { margin-bottom: 0; }
+.cell-output > pre { margin-bottom: 0; }
 
 .cell-output > pre, .cell-output > .sourceCode > pre, .cell-output-stdout > pre {
   margin-left: 0.8rem;
@@ -19,9 +11,7 @@
   border-top-right-radius: 0;
 }
 
-.cell-output > .sourceCode {
-  border: none;
-}
+.cell-output > .sourceCode { border: none; }
 
 .cell-output > .sourceCode {
   background: none;
@@ -31,8 +21,8 @@
 div.description {
   padding-left: 2px;
   padding-top: 5px;
-  font-style: italic;
-  font-size: 135%;
+  font-size: 1.25rem;
+  color: rgba(0, 0, 0, 0.60);
   opacity: 70%;
 }
 
@@ -46,17 +36,15 @@ div.description {
 .quarto-figure:has(img.floatr) figcaption {
   text-align: center;
   width: 100%;
-}
++div.sidebar-item-container .active {
++  background-color: #E8E8FC;
++  color: #000;
+ }
 
 .quarto-figure:has(img.floatl) {
   float: left;
   margin-right: 1rem;
   margin-bottom: 0.5rem;
   margin-top: 0.5rem;
-}
-
-.quarto-figure:has(img.floatl) figcaption {
-  text-align: center;
-  width: 100%;
 }
 
