@@ -2,7 +2,7 @@
 title: "The /llms.txt file"
 date: 2024-09-03
 author: "Jeremy Howard"
-description: "A proposal to standardise on using an `/llms.txt` file to provide information to help LLMs use a website."
+description: "A proposal to standardise on using an `/llms.txt` file to provide information to help LLMs use a website at inference time."
 image: "/sample.png"
 ---
 
@@ -10,7 +10,9 @@ image: "/sample.png"
 
 Today websites are not just used to provide information to people, but they are also used to provide information to large language models. For instance, language models are often used to enhance development environments used by coders, with many systems including an option to ingest information about programming libraries and APIs from website documentation.
 
-Providing information for language models is a little different to providing information for humans, although there is plenty of overlap. Language models generally like to have information in a more concise form. This can be more similar to what a human expert would want to read. Language models can ingest a lot of information quickly, so it can be helpful to have a single place where all of the key information can be collated.
+Providing information for language models is a little different to providing information for humans, although there is plenty of overlap. Language models generally like to have information in a more concise form. This can be more similar to what a human expert would want to read. Language models can ingest a lot of information quickly, so it can be helpful to have a single place where all of the key information can be collated---not for training (since training generally involved scraping all pages in all readable formats), but for helping users accessing the site via AI helpers.
+
+Context windows are too small to handle most websites in their entirety, and converting HTML pages with complex navigation, ads, Javascript, etc into LLM-friendly plain text documents is difficult and imprecise. Therefore it would be helpful if there was a way to identify the most important information to provide to AI helpers, in the most appropriate form.
 
 ## Proposal
 
