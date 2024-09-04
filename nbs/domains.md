@@ -1,10 +1,10 @@
-# llms.txt Guidelines
+# llms.txt in Different Domains
 
 This page has some guidelines and suggestions for how different domains could utilize `llms.txt` to allow LLMs to better interface with their site if they so choose.
 
 Remember, when constructing your `llms.txt` you should "use concise, clear language. When linking to resources, include brief, informative descriptions. Avoid ambiguous terms or unexplained jargon." Additionally, the best way to determine if your `llms.txt` works well with LLMs is to test it with them! Here is a minimal way to test Anthropic's Claude against your `llms.txt`:
 
-```python filename='test_llms_txt.py`
+```python
 # /// script
 # requires-python = ">=3.8"
 # dependencies = [
