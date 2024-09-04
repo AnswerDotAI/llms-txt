@@ -1,1 +1,1 @@
-nbs/index.md
+nbs/index.qmd
