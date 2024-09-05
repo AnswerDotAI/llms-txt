@@ -11,4 +11,7 @@ website:
       - section: Editors and IDEs
         contents:
           - ed.md
+      - section: Guidlines
+        contents:
+          - domains.md
 
