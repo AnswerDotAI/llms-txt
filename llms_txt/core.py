@@ -25,7 +25,8 @@ def named_re(nm, pat):
 
 def search(pat, txt, flags=0):
     "Dictionary of matched groups in `pat` within `txt`"
-    return re.search(pat, txt, flags=flags).groupdict()
+    res = re.search(pat, txt, flags=flags)
+    return res.groupdict() if res else None
 
 # %% ../nbs/01_core.ipynb
 def parse_link(txt):
@@ -65,22 +66,23 @@ def parse_llms_file(txt):
 from fastcore.xml import Sections,Project,Doc
 
 # %% ../nbs/01_core.ipynb
-def _doc(url, **kw):
+def _doc(kw):
     "Create a `Doc` FT object with the text retrieved from `url` as the child, and `kw` as attrs."
+    url = kw.pop('url')
     re_comment = re.compile('^<!--.*-->$', flags=re.MULTILINE)
     txt = [o for o in httpx.get(url).text.splitlines() if not re_comment.search(o)]
     return Doc('\n'.join(txt), **kw)
 
 # %% ../nbs/01_core.ipynb
-def _section(nm, items):
+def _section(nm, items, n_workers=None):
     "Create a section containing a `Doc` object for each child."
-    return ft(nm, *[_doc(**o) for o in items])
+    return ft(nm, *parallel(_doc, items, n_workers=n_workers, threadpool=True))
 
 # %% ../nbs/01_core.ipynb
-def mk_ctx(d, optional=True):
+def mk_ctx(d, optional=True, n_workers=None):
     "Create a `Project` with a `Section` for each H2 part in `d`, optionally skipping the 'optional' section."
     skip = '' if optional else 'Optional'
-    sections = [_section(k, v) for k,v in d.sections.items() if k!=skip]
+    sections = [_section(k, v, n_workers=n_workers) for k,v in d.sections.items() if k!=skip]
     return Project(title=d.title, summary=d.summary)(d.info, *sections)
 
 # %% ../nbs/01_core.ipynb
@@ -89,17 +91,18 @@ def get_sizes(ctx):
     return {o.tag:{p.title:len(p.children[0]) for p in o.children} for o in ctx.children if hasattr(o,'tag')}
 
 # %% ../nbs/01_core.ipynb
-def create_ctx(txt, optional=False):
+def create_ctx(txt, optional=False, n_workers=None):
     "A `Project` with a `Section` for each H2 part in `txt`, optionally skipping the 'optional' section."
     d = parse_llms_file(txt)
-    ctx = mk_ctx(d, optional=optional)
+    ctx = mk_ctx(d, optional=optional, n_workers=n_workers)
     return to_xml(ctx, do_escape=False)
 
 # %% ../nbs/01_core.ipynb
 @call_parse
 def llms_txt2ctx(
     fname:str, # File name to read
-    optional:bool_arg=False # Include 'optional' section?
+    optional:bool_arg=False, # Include 'optional' section?
+    n_workers:int=None # Number of threads to use for parallel downloading
 ):
     "Print a `Project` with a `Section` for each H2 part in file read from `fname`, optionally skipping the 'optional' section."
-    print(create_ctx(Path(fname).read_text(), optional=optional))
+    print(create_ctx(Path(fname).read_text(), optional=optional, n_workers=n_workers))
