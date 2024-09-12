@@ -70,7 +70,8 @@ def _doc(kw):
     "Create a `Doc` FT object with the text retrieved from `url` as the child, and `kw` as attrs."
     url = kw.pop('url')
     re_comment = re.compile('^<!--.*-->$', flags=re.MULTILINE)
-    txt = [o for o in httpx.get(url).text.splitlines() if not re_comment.search(o)]
+    re_base64_img = re.compile(r'<img[^>]*src="data:image/[^"]*"[^>]*>')
+    txt = [o for o in httpx.get(url).text.splitlines() if not re_comment.search(o) and not re_base64_img.search(o)]
     return Doc('\n'.join(txt), **kw)
 
 # %% ../nbs/01_core.ipynb
