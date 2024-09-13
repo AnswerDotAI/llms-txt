@@ -69,12 +69,14 @@ def parse_llms_file(txt):
 from fastcore.xml import Sections,Project,Doc
 
 # %% ../nbs/01_core.ipynb
+def _local_docs_pth(cfg): return cfg.config_path/'_proc'/cfg.doc_path.name
+
 def get_doc_content(url):
     "Fetch content from local file if in nbdev repo."
     cfg = get_config()
     if url.startswith(cfg.doc_host):
         relative_path = urlparse(url).path.lstrip('/')
-        local_path = cfg.doc_path / relative_path
+        local_path = _local_docs_pth(cfg) / relative_path
         if local_path.exists(): return local_path.read_text()
     return httpx.get(url).text
 
@@ -118,9 +120,11 @@ def llms_txt2ctx(
     fname:str, # File name to read
     optional:bool_arg=False, # Include 'optional' section?
     n_workers:int=None, # Number of threads to use for parallel downloading
-    save_nbdev:bool_arg=False #save output to nbdev `docs_path` instead of emitting to stdout
+    save_nbdev_fname:str=None #save output to nbdev `{docs_path}` instead of emitting to stdout
 ):
     "Print a `Project` with a `Section` for each H2 part in file read from `fname`, optionally skipping the 'optional' section."
     ctx = create_ctx(Path(fname).read_text(), optional=optional, n_workers=n_workers)
-    if save_nbdev: (get_config().doc_path / fname).write_text(ctx)
+    if save_nbdev_fname:
+        cfg = get_config()
+        (_local_docs_pth(cfg) / save_nbdev_fname).mk_write(ctx)
     else: print(ctx)
