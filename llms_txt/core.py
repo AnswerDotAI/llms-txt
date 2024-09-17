@@ -74,7 +74,7 @@ def _local_docs_pth(cfg): return cfg.config_path/'_proc'/cfg.doc_path.name
 def get_doc_content(url):
     "Fetch content from local file if in nbdev repo."
     cfg = get_config()
-    if cfg.config_file.exists() and url.startswith(cfg.doc_host):
+    if is_nbdev() and url.startswith(cfg.doc_host):
         relative_path = urlparse(url).path.lstrip('/')
         local_path = _local_docs_pth(cfg) / relative_path
         if local_path.exists(): return local_path.read_text()
