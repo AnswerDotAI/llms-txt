@@ -15,7 +15,7 @@ from fastcore.xml import *
 from fastcore.script import *
 import httpx
 from urllib.parse import urlparse
-from nbdev.config import get_config
+from nbdev.config import *
 
 # %% ../nbs/01_core.ipynb
 def opt_re(s):
@@ -74,7 +74,7 @@ def _local_docs_pth(cfg): return cfg.config_path/'_proc'/cfg.doc_path.name
 def get_doc_content(url):
     "Fetch content from local file if in nbdev repo."
     cfg = get_config()
-    if url.startswith(cfg.doc_host):
+    if cfg.config_file.exists() and url.startswith(cfg.doc_host):
         relative_path = urlparse(url).path.lstrip('/')
         local_path = _local_docs_pth(cfg) / relative_path
         if local_path.exists(): return local_path.read_text()
