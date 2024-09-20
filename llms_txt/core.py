@@ -73,8 +73,7 @@ def _get_config(): return Config.find('settings.ini')
 
 def get_doc_content(url):
     "Fetch content from local file if in nbdev repo."
-    cfg = _get_config()
-    if cfg and url.startswith(cfg.doc_host):
+    if (cfg:=_get_config()) and url.startswith(cfg.doc_host):
         relative_path = urlparse(url).path.lstrip('/')
         local_path = _local_docs_pth(cfg) / relative_path
         if local_path.exists(): return local_path.read_text()
