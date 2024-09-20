@@ -15,7 +15,6 @@ from fastcore.xml import *
 from fastcore.script import *
 import httpx
 from urllib.parse import urlparse
-from nbdev.config import *
 
 # %% ../nbs/01_core.ipynb
 def opt_re(s):
@@ -69,12 +68,13 @@ def parse_llms_file(txt):
 from fastcore.xml import Sections,Project,Doc
 
 # %% ../nbs/01_core.ipynb
-def _local_docs_pth(cfg): return cfg.config_path/'_proc'/cfg.doc_path.name
+def _local_docs_pth(cfg): return cfg.config_path/'_proc'/cfg.doc_path
+def _get_config(): return Config.find('settings.ini')
 
 def get_doc_content(url):
     "Fetch content from local file if in nbdev repo."
-    cfg = get_config()
-    if is_nbdev() and url.startswith(cfg.doc_host):
+    cfg = _get_config()
+    if cfg and url.startswith(cfg.doc_host):
         relative_path = urlparse(url).path.lstrip('/')
         local_path = _local_docs_pth(cfg) / relative_path
         if local_path.exists(): return local_path.read_text()
@@ -124,7 +124,6 @@ def llms_txt2ctx(
 ):
     "Print a `Project` with a `Section` for each H2 part in file read from `fname`, optionally skipping the 'optional' section."
     ctx = create_ctx(Path(fname).read_text(), optional=optional, n_workers=n_workers)
-    if save_nbdev_fname:
-        cfg = get_config()
+    if save_nbdev_fname and (cfg:=_get_config()):
         (_local_docs_pth(cfg) / save_nbdev_fname).mk_write(ctx)
     else: print(ctx)
