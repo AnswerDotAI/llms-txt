@@ -2,6 +2,13 @@
 
 <!-- do not remove -->
 
+## 0.0.4
+
+### New Features
+
+- Check if in nbdev project ([#10](https://github.com/AnswerDotAI/llms-txt/pull/10)), thanks to [@hamelsmu](https://github.com/hamelsmu)
+
+
 ## 0.0.3
 
 ### New Features
