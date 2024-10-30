@@ -16,7 +16,7 @@ Context windows are too small to handle most websites in their entirety, and con
 
 ## Proposal
 
-![llms.txt logo](logo.png){.lightbox width=150px .floatr}
+![llms.txt logo](logo.png)
 
 We propose that those interested in providing LLM-friendly content add a `/llms.txt` file to their site. This is a markdown file that provides brief background information and guidance, along with links to markdown files (which can also link to external sites) providing more detailed information. This can be used, for instance, in order to provide information necessary for coders to use a library, or as part of research to learn about a person or organization and so forth. You are free to use the `llms.txt` logo on your site to indicate your support if you wish.
 
