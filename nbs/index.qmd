@@ -1,9 +1,9 @@
 ---
-title: "The /llms.txt file"
+title: The /llms.txt file
 date: 2024-09-03
-author: "Jeremy Howard"
-description: "A proposal to standardise on using an `/llms.txt` file to provide information to help LLMs use a website at inference time."
-image: "/sample.png"
+author: Jeremy Howard
+description: A proposal to standardise on using an /llms.txt file to provide information to help LLMs use a website at inference time.
+image: /sample.png
 ---
 
 ## Background
@@ -16,7 +16,7 @@ Context windows are too small to handle most websites in their entirety, and con
 
 ## Proposal
 
-![llms.txt logo](logo.png){.lightbox width=150px .floatr}
+<img src="logo.png" alt="llms.txt logo" width="150" class="lightbox floatr" />
 
 We propose that those interested in providing LLM-friendly content add a `/llms.txt` file to their site. This is a markdown file that provides brief background information and guidance, along with links to markdown files (which can also link to external sites) providing more detailed information. This can be used, for instance, in order to provide information necessary for coders to use a library, or as part of research to learn about a person or organization and so forth. You are free to use the `llms.txt` logo on your site to indicate your support if you wish.
 
@@ -111,4 +111,3 @@ To create effective `llms.txt` files, consider these guidelines: Use concise, cl
 ## Next steps
 
 The `llms.txt` specification is open for community input. A [GitHub repository](https://github.com/AnswerDotAI/llms-txt) hosts [this informal overview](https://github.com/AnswerDotAI/llms-txt/blob/main/nbs/index.md), allowing for version control and public discussion. A [community discord channel](https://discord.gg/aJPygMvPEN) is available for sharing implementation experiences and discussing best practices.
-
