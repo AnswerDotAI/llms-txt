@@ -75,7 +75,7 @@ The approach of standardising on a path for the file follows the approach of `/r
 sitemap.xml is a list of all the indexable human-readable information available on a site. This isn’t a substitute for `llms.txt` since it:
 
 - Often won’t have the LLM-readable versions of pages listed
-- Doesn’t include URLs to external sites, even although they might be helpful to understand the information
+- Doesn’t include URLs to external sites, even though they might be helpful to understand the information
 - Will generally cover documents that in aggregate will be too large to fit in an LLM context window, and will include a lot of information that isn’t necessary to understand the site.
 
 ## Example
