@@ -106,7 +106,12 @@ Important notes:
 - [Starlette full documentation](https://gist.githubusercontent.com/path/starlette-sml.md): A subset of the Starlette documentation useful for FastHTML development.
 ```
 
-To create effective `llms.txt` files, consider these guidelines: Use concise, clear language. When linking to resources, include brief, informative descriptions. Avoid ambiguous terms or unexplained jargon. Run a tool that expands your `llms.txt` file into an LLM context file and test a number of language models to see if they can answer questions about your content.
+To create effective `llms.txt` files, consider these guidelines: 
+
+- Use concise, clear language.
+- When linking to resources, include brief, informative descriptions.
+- Avoid ambiguous terms or unexplained jargon.
+- Run a tool that expands your `llms.txt` file into an LLM context file and test a number of language models to see if they can answer questions about your content.
 
 ## Next steps
 
