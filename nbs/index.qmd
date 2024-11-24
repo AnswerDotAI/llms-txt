@@ -108,6 +108,13 @@ Important notes:
 
 To create effective `llms.txt` files, consider these guidelines: Use concise, clear language. When linking to resources, include brief, informative descriptions. Avoid ambiguous terms or unexplained jargon. Run a tool that expands your `llms.txt` file into an LLM context file and test a number of language models to see if they can answer questions about your content.
 
+## Directories
+
+Here are a few directories that list the `llms.txt` files available on the web:
+
+- [llmstxt.site](https://llmstxt.site/)
+- [directory.llmstxt.cloud](https://directory.llmstxt.cloud/)
+
 ## Next steps
 
 The `llms.txt` specification is open for community input. A [GitHub repository](https://github.com/AnswerDotAI/llms-txt) hosts [this informal overview](https://github.com/AnswerDotAI/llms-txt/blob/main/nbs/index.md), allowing for version control and public discussion. A [community discord channel](https://discord.gg/aJPygMvPEN) is available for sharing implementation experiences and discussing best practices.
