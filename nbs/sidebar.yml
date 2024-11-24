@@ -14,8 +14,3 @@ website:
       - section: Guidlines
         contents:
           - domains.md
-      - section: Directory
-        href: dir
-        contents:
-          - directory.md      
-
