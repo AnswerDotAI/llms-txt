@@ -1,0 +1,10 @@
+# llms.txt
+
+> A proposal that those interested in providing LLM-friendly content add a /llms.txt file to their site. This is a markdown file that provides brief background information and guidance, along with links to markdown files providing more detailed information.
+
+## Docs
+
+- [llms.txt proposal](https://llmstxt.org/index.md): The proposal for llms.txt
+- [Python library docs](https://llmstxt.org/intro.html.md): Docs for `llms-txt` python lib
+- [ed demo](https://llmstxt.org/ed-commonmark.md): Tongue-in-cheek example of how llms.txt could be used in the classic `ed` editor, used to show how editors could incorporate llms.txt in general.
+
