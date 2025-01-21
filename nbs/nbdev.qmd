@@ -9,7 +9,7 @@ description: "A practical guide to making your nbdev library LLM-friendly using 
 
 Large Language Models can significantly enhance the developer experience, but they need concise, well-organized documentation to work effectively. This tutorial demonstrates how to add `llms.txt` to your nbdev project, creating a clear interface between your code and LLMs. You'll learn to generate `llms-ctx.txt` and `llms-ctx-full.txt` files and integrate them with your documentation.
 
-While this guide focuses on nbdev, the underlying principles and tools are framework-agnostic and can help make any codebase more accessible to LLMs.
+While this guide focuses on `nbdev`, the underlying principles and tools are framework-agnostic and can help make any codebase more accessible to LLMs.
 
 Let's explore how to implement this.
 
@@ -39,7 +39,7 @@ Creating an effective description often begins with collecting existing content.
 
 The idea is to focus on clarity and accessibility. One effective approach is to frame your project as you would when introducing it to a new team member. This often yields the right balance of precision and comprehension.
 
-Another technique that can speed you along the way is tapping an LLM for help. You can pass it content from multiple sources and ask it to help you synthetize it into a cohesive description. This can work particularly well because LLMs excel at summarizing and translating content from one format to another.
+Another technique that can speed you along the way is tapping an LLM for help. You can pass it content from multiple sources and ask it to help you synthetize it into cohesive prose. This can work particularly well because LLMs excel at summarizing and translating content from one format to another, especially with your guidance.
 
 ### Adding resource sections
 
@@ -47,7 +47,7 @@ The next step is to organize supplementary documentation into themed sections. E
 
 Markdown files are strongly recommended here as they offer a good balance of structure and readability. You could attempt linking to other formats, but your results may vary. For instance, HTML tends to be verbose, and formats like CSV rarely contain information that lends itself well to documenting functionality.
 
-Here's an example of what this section can look like:
+Here's an example of what this section might look like:
 
 ```markdown
 ## Docs
@@ -62,7 +62,7 @@ Here's an example of what this section can look like:
 
 ### The Optional section
 
-The `Optional` section provides a mechanism for managing context size. Resources listed in this section appear only in `llms-ctx-full.txt`, while being omitted from `llms-ctx.txt`. This allows for more flexibility and allows you to choose the right amount of context based on your use case and the capabilities of the LLM you plan to use.
+The `Optional` section provides a mechanism for managing context size. Resources listed in this section appear only in `llms-ctx-full.txt`, while being omitted from `llms-ctx.txt`. This allows for more flexibility and allows the user to choose the right amount of context based on their use case and the capabilities of the LLM they plan to use.
 
 ```markdown
 ## Optional
@@ -139,4 +139,4 @@ Working effectively with LLMs often involves studying successful implementations
 
 To see all the necessary changes in one place, here's a [complete example](https://github.com/AnswerDotAI/nbdev/pull/1485/files) of adding `llms.txt` to an existing nbdev project.
 
-Making your library LLM-friendly opens new possibilities for AI-assisted development and exploring topics in programming you might not have encountered before. We hope this guide helps you take advantage of these exciting new tools.
+Making your library LLM-friendly opens new possibilities for AI-assisted development and exploring topics in programming you might not be too familiar with. We hope this guide helps you take advantage of these exciting new tools.
