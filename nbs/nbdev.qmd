@@ -17,7 +17,7 @@ Let's explore how to implement this.
 
 The foundation of LLM-friendly documentation is the `llms.txt` file. You can think of it as a GitHub README but designed specifically for LLMs. It starts with a high-level description followed by sections that include more and more lower level details.
 
-Here is a minimal example.
+Here is a minimal example:
 
 ```markdown
 # FastHTML
@@ -39,7 +39,7 @@ Creating an effective description often begins with collecting existing content.
 
 The idea is to focus on clarity and accessibility. One effective approach is to frame your project as you would when introducing it to a new team member. This often yields the right balance of precision and comprehension.
 
-Another technique that can speed you along the way is tapping an LLM for help. You can pass it content from multiple sources and ask it to help you synthetize it into a cohesive description. This works well, because summarizing or translating content from one format to another is something LLMs can do very well.
+Another technique that can speed you along the way is tapping an LLM for help. You can pass it content from multiple sources and ask it to help you synthetize it into a cohesive description. This can work particularly well because LLMs excel at summarizing and translating content from one format to another.
 
 ### Adding resource sections
 
