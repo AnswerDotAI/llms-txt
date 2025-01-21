@@ -2,24 +2,22 @@
 title: "How to help LLMs understand your nbdev project"
 date: 2024-01-20
 author: "Radek Osmulski"
-description: "A practical guide to making your nbdev library LLM-friendly using llms.txt - includes automation tips and real-world examples."
+description: "A practical guide to making your nbdev library LLM-friendly using llms.txt, with automation techniques and implementation examples."
 ---
 
 ## Overview
 
-Want to make your nbdev library more LLM-friendly? In this tutorial, I'll show you how to add `llms.txt` to your project - a simple but powerful way to help LLMs better understand your code. You'll learn how to automatically generate `llms-ctx.txt` and `llms-ctx-full.txt` files, and serve them alongside your documentation.
+Large Language Models can significantly enhance the developer experience, but they need concise, well-organized documentation to work effectively. This tutorial demonstrates how to add `llms.txt` to your nbdev project, creating a clear interface between your code and LLMs. You'll learn to generate `llms-ctx.txt` and `llms-ctx-full.txt` files and integrate them with your documentation.
 
-The best part? These techniques aren't limited to nbdev projects. Whether you're using `nbdev` or not, you'll discover practical tools and ideas to make your code more accessible to LLMs!
+While this guide focuses on nbdev, the underlying principles and tools are framework-agnostic and can help make any codebase more accessible to LLMs.
 
-Let's get started.
+Let's explore how to implement this.
 
 ## The key ingredient: llms.txt
 
-Ready to make your library LLM-friendly? It all starts with creating a `llms.txt` file. Don't worry - if you've ever written a GitHub README, you already know most of what you need!
+The foundation of LLM-friendly documentation is the `llms.txt` file. You can think of it as a GitHub README but designed specifically for LLMs. It starts with a high-level description followed by sections that include more and more lower level details.
 
-### The basic structure
-
-The file starts with a title and a concise description (prefixed with `>`), followed by any helpful notes about your project:
+Here is a minimal example.
 
 ```markdown
 # FastHTML
@@ -31,25 +29,25 @@ When writing FastHTML apps remember to:
 - Thing to remember
 ```
 
-### Writing the description
+### Tips on writing the description
 
-Stuck on what to write? Here's a tip: imagine explaining your project to a friend! How would you describe it to them? Now write those words down.
-
-Also, you probably already have great content you can adapt:
+Creating an effective description often begins with collecting existing content. Consider drawing from:
 - Your project's README
-- Blog posts you've written
-- Social media threads
-- Documentation
+- Blog posts and articles
+- Social media discussions
+- Technical documentation
 
-Pro tip: Feed selected excerpts from your existing content to an LLM and ask for a flowing summary!
+The idea is to focus on clarity and accessibility. One effective approach is to frame your project as you would when introducing it to a new team member. This often yields the right balance of precision and comprehension.
 
-The easier you make this task on yourself, the better!
+Another technique that can speed you along the way is tapping an LLM for help. You can pass it content from multiple sources and ask it to help you synthetize it into a cohesive description. This works well, because summarizing or translating content from one format to another is something LLMs can do very well.
 
 ### Adding resource sections
 
-Now that we have our initial description, let's add some more details about our project.
+The next step is to organize supplementary documentation into themed sections. Each section should contain links to resources that provide in-depth information about specific aspects of your project.
 
-Create a section or two (you can choose any titles that make sense for your project) and add links to resources that provide more detailed information. While Markdown files work best, don't worry if you have other formats - any text format that an LLM can understand (like plain text, HTML, or even CSV) will work just fine.
+Markdown files are strongly recommended here as they offer a good balance of structure and readability. You could attempt linking to other formats, but your results may vary. For instance, HTML tends to be verbose, and formats like CSV rarely contain information that lends itself well to documenting functionality.
+
+Here's an example of what this section can look like:
 
 ```markdown
 ## Docs
@@ -62,7 +60,9 @@ Create a section or two (you can choose any titles that make sense for your proj
 - [Todo app](https://host/adv_app.py)
 ```
 
-The `Optional` section works just like the other sections, but any resources you put here will only appear in `llms-ctx-full.txt`, not in `llms-ctx.txt`. This lets your users choose just the right amount of context for their needs.
+### The Optional section
+
+The `Optional` section provides a mechanism for managing context size. Resources listed in this section appear only in `llms-ctx-full.txt`, while being omitted from `llms-ctx.txt`. This allows for more flexibility and allows you to choose the right amount of context based on your use case and the capabilities of the LLM you plan to use.
 
 ```markdown
 ## Optional
@@ -70,19 +70,19 @@ The `Optional` section works just like the other sections, but any resources you
 - [Starlette docs](https://host/starlette-sml.md): A subset of the Starlette docs
 ```
 
-That's all there is to creating your `llms.txt`! Now let's see how to turn it into LLM-friendly context files.
+Your `llms.txt` file is now complete. The next step is to automatically expand it by retrieving content from all the linked resources.
 
-## Getting the `llms-ctx.txt` and `llms-ctx-full.txt` for free
+## Generating context files
 
-Generating context files from your `llms.txt` is surprisingly simple. The [llms-txt](https://llmstxt.org/intro.html) library does all the heavy lifting for you!
+The [llms-txt](https://llmstxt.org/intro.html) library automates the process of generating context files from your `llms.txt`. It can be used either through its CLI interface or as a Python module.
 
-You can use it as a CLI tool:
+Using the CLI:
 
 ```bash
 llms_txt2ctx llms.txt --save_nbdev_fname llms-ctx.txt
 ```
 
-Or if you prefer working in Python:
+Or via Python:
 
 ```python
 from llms_txt import *
@@ -90,44 +90,35 @@ samp = Path('llms-sample.txt').read_text()
 parsed = parse_llms_file(samp)
 ```
 
-This will read your llms.txt and automatically fetch the content from all the linked URLs!
+Both approaches read your `llms.txt` file and retrieve the linked content.
 
-But wait, there's more! What if we could make these context files even more useful to LLMs? Enter [pysymbol-llm](https://github.com/AnswerDotAI/pysymbol-llm), a tiny but powerful tool that's going to help us do just that.
+Next, let's take a look at how we can use [pysymbol-llm](https://github.com/AnswerDotAI/pysymbol-llm) to add even more useful information in an automated way.
 
-## `apilist.txt` to the rescue
+## Enhancing context with API reference
 
-LLMs are often good at understanding the big picture of smaller libraries, but they tend to struggle with the finer details. And once an LLM starts confabulating, it's very hard to get it back on track.
+While LLMs generally understand high-level concepts, they often struggle with implementation details, especially when their training data is outdated. Providing a comprehensive list of your library's symbols - functions, classes, and their documentation - helps bridge this gap.
 
-But what if we could hand an LLM a concise and up to date list of all the symbols (functions, classes, etc) in our library? This is also a great way to plug the knowledge cutoff gap between what your project looked like when the training data was collected for the training of the LLM and what it looks like right now!
+The [pysymbol-llm](https://github.com/AnswerDotAI/pysymbol-llm) library automates this process. It generates a complete API reference in Markdown format, extracting existing docstrings along the way.
 
-Our library of choice here, [pysymbol-llm](https://github.com/AnswerDotAI/pysymbol-llm), is a new kid on the block and I had not been aware of its existence until I studied how the `fastcore` project handles its `llms.txt`. But the utility it provides for essentially free is too good to pass up!
-
-You point it at your library, it does its magic, and out comes an API list, including docstrings, all in concise Markdown format!
-
-As an example, here is the [apilist.txt](https://fastcore.fast.ai/apilist.txt) for [`fastcore`](https://github.com/fastai/fastcore).
-
-Are you as excited as I am? With absolutely no effort I can now hand an LLM a list of all the symbols in any library I am interested in and can immediately start chatting with it about it!
-
-Just to test how well it works with more traditional libraries, I cloned `numpy` and ran `pysymbol-llm` on it using the following command:
+For reference, here is the [apilist.txt](https://fastcore.fast.ai/apilist.txt) generated for [fastcore](https://github.com/fastai/fastcore). The tool scales well to larger libraries - for instance, generating the API reference for numpy requires just one command:
 
 ```bash
 pysym2md numpy
 ```
-Amazing! :)
 
-To significantly enhance your `llms.txt` setup, generate the `apilist.txt`, serve it, and link to the URL at which it is served from your `llms.txt` file!
+To implement this in your project, generate an `apilist.txt`, serve it alongside your documentation, and reference it from your `llms.txt` file.
 
-### Configuring your `nbdev` project
+## Configuration
 
-Now that we have all the pieces ready, let's put them together! Here are the three steps needed to get your LLM-friendly docs up and running:
+The final step is to configure your nbdev project to generate and serve these context files. This requires three changes:
 
 1. Add your `llms.txt` file to the `nbs` directory of your project.
 
-2. Tell nbdev about the new dependencies by adding these lines to your `dev_requirements` in `settings.ini`:
+2. Add the required dependencies to `settings.ini`:
 ```
 dev_requirements = pysymbol_llm llms-txt
 ```
-3. Configure Quarto to generate and serve the context files. Add these lines to your `nbs/_quarto.yml`:
+3. Configure Quarto's build process in `nbs/_quarto.yml`:
 ```
 project:
   type: website
@@ -140,18 +131,12 @@ project:
     - "*.txt"
 ```
 
-Remember to link to your `apilist.txt` from your `llms.txt` file!
+Remember to manually add a link to the generated `apilist.txt` in your `llms.txt` file. Once you commit these changes and rebuild your docs, your library will be ready for deeper, more accurate conversations with LLMs.
 
-And that's it! Commit your changes as usual and your library is ready to chat with LLMs.
+## Learning from examples
 
-## The final touch
+Working effectively with LLMs often involves studying successful implementations. The [fastcore](https://fastcore.fast.ai/llms.txt) project offers a good reference, and you can find additional examples in the [llmstxt.site](https://llmstxt.site/) and [llmstxt.cloud](https://directory.llmstxt.cloud/) directories.
 
-If there's one thing I've learned in the era of LLMs, it's the importance of removing friction - whether you're working, learning, or just having fun. And one of the best ways to do that? Learning from others!
+To see all the necessary changes in one place, here's a [complete example](https://github.com/AnswerDotAI/nbdev/pull/1485/files) of adding `llms.txt` to an existing nbdev project.
 
-Why not keep a few tabs open with `llms.txt` files from other projects while working on your own? I started my journey by studying the `llms.txt` of [fastcore](https://github.com/AnswerDotAI/fastcore), and found many more great examples in the [llmstxt.site](https://llmstxt.site/) and [llmstxt.cloud](https://directory.llmstxt.cloud/) directories.
-
-Want to see how all these pieces fit together? Here's a [complete example](https://github.com/AnswerDotAI/nbdev/pull/1485/files) of adding `llms.txt` to one of my favorite libraries.
-
-I hope you found this tutorial helpful! Being able to chat with an LLM about your code is not just practical - it's a fantastic way to learn and explore. Have fun making your library LLM-friendly!
-
-Happy coding!
+Making your library LLM-friendly opens new possibilities for AI-assisted development and exploring topics in programming you might not have encountered before. We hope this guide helps you take advantage of these exciting new tools.
