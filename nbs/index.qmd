@@ -113,6 +113,14 @@ Here are a few directories that list the `llms.txt` files available on the web:
 - [llmstxt.site](https://llmstxt.site/)
 - [directory.llmstxt.cloud](https://directory.llmstxt.cloud/)
 
+## Integrations
+
+Various tools and plugins are available to help integrate the llms.txt specification into your workflow:
+
+- [`llms_txt2ctx`](https://llmstxt.org/intro.html#cli) - CLI and Python module for parsing llms.txt files and generating LLM context
+- [JavaScript Implementation](./llmstxt-js.html) - Sample JavaScript implementation
+- [vite-plugin-llms](https://github.com/saschaseniuk/vite-plugin-llms) - Vite plugin that serves markdown files alongside your routes following the llms.txt specification
+
 ## Next steps
 
 The `llms.txt` specification is open for community input. A [GitHub repository](https://github.com/AnswerDotAI/llms-txt) hosts [this informal overview](https://github.com/AnswerDotAI/llms-txt/blob/main/nbs/index.md), allowing for version control and public discussion. A [community discord channel](https://discord.gg/aJPygMvPEN) is available for sharing implementation experiences and discussing best practices.
