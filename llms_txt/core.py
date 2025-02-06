@@ -71,7 +71,7 @@ from fastcore.xml import Sections,Project,Doc
 def _local_docs_pth(cfg): return cfg.config_path/'_proc'/cfg.doc_path
 def _get_config(): 
     cwd = os.getcwd() 
-    # when notebooks are in the root, the build cache preserves the settings.ini in `_proc`
+    # when notebooks are in the root, the nbdev preserves the settings.ini in `_proc`
     return Config.find('settings.ini', Path(cwd).parent if cwd.endswith('_proc') else None) 
 
 def get_doc_content(url):
