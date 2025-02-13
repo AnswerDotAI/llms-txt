@@ -1,0 +1,23 @@
+# FastHTML
+
+> FastHTML is a python library which brings together Starlette, Uvicorn, HTMX, and fastcore's `FT` "FastTags" into a library for creating server-rendered hypermedia applications.
+
+Remember:
+
+- Use `serve()` for running uvicorn (`if __name__ == "__main__"` is not needed since it's automatic)
+- When a title is needed with a response, use `Titled`; note that that already wraps children in `Container`, and already includes both the meta title as well as the H1 element.
+
+## Docs
+
+- [FastHTML quick start](https://docs.fastht.ml/tutorials/quickstart_for_web_devs.html.md): A brief overview of FastHTML features
+- [HTMX reference](https://raw.githubusercontent.com/bigskysoftware/htmx/master/www/content/reference.md): Brief description of all HTMX attributes, CSS classes, headers, events, extensions, js lib methods, and config options
+- [Starlette quick guide](https://gist.githubusercontent.com/jph00/e91192e9bdc1640f5421ce3c904f2efb/raw/61a2774912414029edaf1a55b506f0e283b93c46/starlette-quick.md)
+
+## Examples
+
+- [Todo list application](https://raw.githubusercontent.com/AnswerDotAI/fasthtml/main/examples/adv_app.py): Detailed walk-thru of a complete CRUD app in FastHTML showing idiomatic use of FastHTML and HTMX patterns.
+
+## Optional
+
+- [Starlette full documentation](https://gist.githubusercontent.com/jph00/809e4a4808d4510be0e3dc9565e9cbd3/raw/9b717589ca44cedc8aaf00b2b8cacef922964c0f/starlette-sml.md): A subset of the Starlette documentation useful for FastHTML development.
+
