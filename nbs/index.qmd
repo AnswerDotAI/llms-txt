@@ -92,7 +92,7 @@ Important notes:
 
 ## Docs
 
-- [FastHTML quick start](https://docs.fastht.ml/path/quickstart.html.md): A brief overview of many FastHTML features
+- [FastHTML quick start](https://docs.fastht.ml/tutorials/quickstart_for_web_devs.html.md): A brief overview of many FastHTML features
 - [HTMX reference](https://raw.githubusercontent.com/path/reference.md): Brief description of all HTMX attributes, CSS classes, headers, events, extensions, js lib methods, and config options
 
 ## Examples
