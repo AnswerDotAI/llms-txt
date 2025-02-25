@@ -14,7 +14,7 @@ While websites serve both human readers and LLMs, the latter benefit from more c
 
 ## Proposal
 
-![llms.txt logo](logo.png){.lightbox width=150px .floatr}
+<img src="logo.png" alt="llms.txt logo" width="150" style="float: right; margin-left: 10px;">
 
 We propose adding a `/llms.txt` markdown file to websites to provide LLM-friendly content. This file offers brief background information, guidance, and links to detailed markdown files.
 
