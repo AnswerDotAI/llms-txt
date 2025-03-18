@@ -22,9 +22,9 @@ llms.txt markdown is human and LLM readable, but is also in a precise format all
 
 We furthermore propose that pages on websites that have information that might be useful for LLMs to read provide a clean markdown version of those pages at the same URL as the original page, but with `.md` appended. (URLs without file names should append `index.html.md` instead.)
 
-The [FastHTML project](https://fastht.ml) follows these two proposals for its documentation. For instance, here is the [FastHTML docs llms.txt](https://docs.fastht.ml/llms.txt). And here is an example of a [regular HTML docs page](https://docs.fastht.ml/tutorials/by_example.html), along with exact same URL but with [a .md extension](https://docs.fastht.ml/tutorials/by_example.html.md).
+The [FastHTML project](https://fastht.ml) follows these two proposals for its documentation. For instance, here is the [FastHTML docs llms.txt](https://answerdotai.github.io/fasthtml/llms.txt). And here is an example of a [regular HTML docs page](https://answerdotai.github.io/fasthtml/tutorials/by_example.html), along with exact same URL but with [a .md extension](https://answerdotai.github.io/fasthtml/tutorials/by_example.html.md).
 
-This proposal does not include any particular recommendation for how to process the llms.txt file, since it will depend on the application. For example, the FastHTML project opted to automatically expand the llms.txt to two markdown files with the contents of the linked URLs, using an XML-based structure suitable for use in LLMs such as Claude. The two files are: [llms-ctx.txt](https://docs.fastht.ml/llms-ctx.txt), which does not include the optional URLs, and [llms-ctx-full.txt](https://docs.fastht.ml/llms-ctx-full.txt), which does include them. They are created using the [`llms_txt2ctx`](https://llmstxt.org/intro.html#cli) command line application, and the FastHTML documentation includes information for users about how to use them.
+This proposal does not include any particular recommendation for how to process the llms.txt file, since it will depend on the application. For example, the FastHTML project opted to automatically expand the llms.txt to two markdown files with the contents of the linked URLs, using an XML-based structure suitable for use in LLMs such as Claude. The two files are: [llms-ctx.txt](https://answerdotai.github.io/fasthtml/llms-ctx.txt), which does not include the optional URLs, and [llms-ctx-full.txt](https://answerdotai.github.io/fasthtml/llms-ctx-full.txt), which does include them. They are created using the [`llms_txt2ctx`](https://llmstxt.org/intro.html#cli) command line application, and the FastHTML documentation includes information for users about how to use them.
 
 The versatility of llms.txt files means they can serve many purposes - from helping developers find their way around software documentation, to giving businesses a way to outline their structure, or even breaking down complex legislation for stakeholders. They're just as useful for personal websites where they can help answer questions about someone's CV, for e-commerce sites to explain products and policies, or for schools and universities to provide quick access to their course information and resources.
 
@@ -78,7 +78,7 @@ sitemap.xml is a list of all the indexable human-readable information available 
 
 ## Example
 
-Here’s an example of `llms.txt`, in this case a cut down version of the file used for the FastHTML project (see also the [full version](https://docs.fastht.ml/llms.txt):
+Here’s an example of `llms.txt`, in this case a cut down version of the file used for the FastHTML project (see also the [full version](https://answerdotai.github.io/fasthtml/llms.txt):
 
 ```markdown
 # FastHTML
@@ -92,7 +92,7 @@ Important notes:
 
 ## Docs
 
-- [FastHTML quick start](https://docs.fastht.ml/tutorials/quickstart_for_web_devs.html.md): A brief overview of many FastHTML features
+- [FastHTML quick start](https://answerdotai.github.io/fasthtml/tutorials/quickstart_for_web_devs.html.md): A brief overview of many FastHTML features
 - [HTMX reference](https://raw.githubusercontent.com/path/reference.md): Brief description of all HTMX attributes, CSS classes, headers, events, extensions, js lib methods, and config options
 
 ## Examples

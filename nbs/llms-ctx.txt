@@ -1,26 +1,20 @@
-<project title="llms.txt">
-> A proposal that those interested in providing LLM-friendly content add a /llms.txt file to their site. This is a markdown file that provides brief background information and guidance, along with links to markdown files providing more detailed information.
-  <docs>
-    <doc title="llms.txt proposal" desc="The proposal for llms.txt"># The /llms.txt file
+<project title="llms.txt">> A proposal that those interested in providing LLM-friendly content add a /llms.txt file to their site. This is a markdown file that provides brief background information and guidance, along with links to markdown files providing more detailed information.<docs><doc title="llms.txt proposal" desc="The proposal for llms.txt"># The /llms.txt file
 Jeremy Howard
 2024-09-03
 
 ## Background
 
-Today websites are not just used to provide information to people, but
-they are also used to provide information to large language models. For
-instance, language models are often used to enhance development
-environments used by coders, with many systems including an option to
-ingest information about programming libraries and APIs from website
-documentation.
+Large language models increasingly rely on website information, but face
+a critical limitation: context windows are too small to handle most
+websites in their entirety. Converting complex HTML pages with
+navigation, ads, and JavaScript into LLM-friendly plain text is both
+difficult and imprecise.
 
-Providing information for language models is a little different to
-providing information for humans, although there is plenty of overlap.
-Language models generally like to have information in a more concise
-form. This can be more similar to what a human expert would want to
-read. Language models can ingest a lot of information quickly, so it can
-be helpful to have a single place where all of the key information can
-be collated.
+While websites serve both human readers and LLMs, the latter benefit
+from more concise, expert-level information gathered in a single,
+accessible location. This is particularly important for use cases like
+development environments, where LLMs need quick access to programming
+documentation and APIs.
 
 ## Proposal
 
@@ -30,22 +24,13 @@ alt="llms.txt logo" />
 <figcaption aria-hidden="true">llms.txt logo</figcaption>
 </figure>
 
-We propose that those interested in providing LLM-friendly content add a
-`/llms.txt` file to their site. This is a markdown file that provides
-brief background information and guidance, along with links to markdown
-files (which can also link to external sites) providing more detailed
-information. This can be used, for instance, in order to provide
-information necessary for coders to use a library, or as part of
-research to learn about a person or organization and so forth. You are
-free to use the `llms.txt` logo on your site to indicate your support if
-you wish.
+We propose adding a `/llms.txt` markdown file to websites to provide
+LLM-friendly content. This file offers brief background information,
+guidance, and links to detailed markdown files.
 
 llms.txt markdown is human and LLM readable, but is also in a precise
 format allowing fixed processing methods (i.e. classical programming
-techniques such as parsers and regex). For instance, there is an
-[llms-txt](./intro.html) project providing a CLI and Python module for
-parsing `llms.txt` files and generating LLM context from them. There is
-also a [sample JavaScript](./llmstxt-js.html) implementation.
+techniques such as parsers and regex).
 
 We furthermore propose that pages on websites that have information that
 might be useful for LLMs to read provide a clean markdown version of
@@ -59,40 +44,36 @@ llms.txt](https://docs.fastht.ml/llms.txt). And here is an example of a
 [regular HTML docs
 page](https://docs.fastht.ml/tutorials/by_example.html), along with
 exact same URL but with [a .md
-extension](https://docs.fastht.ml/tutorials/by_example.html.md). Note
-that all [nbdev](https://nbdev.fast.ai/) projects now create .md
-versions of all pages by default, and all Answer.AI and fast.ai software
-projects using nbdev have had their docs regenerated with this
-feature—for instance, see the [markdown
-version](https://fastcore.fast.ai/docments.html.md) of [fastcore’s
-docments module](https://fastcore.fast.ai/docments.html).
+extension](https://docs.fastht.ml/tutorials/by_example.html.md).
 
 This proposal does not include any particular recommendation for how to
-process the file, since it will depend on the application. For example,
-FastHTML automatically builds a new version of two markdown files
-including the contents of the linked URLs, using an XML-based structure
-suitable for use in LLMs such as Claude. The two files are:
-[llms-ctx.txt](https://docs.fastht.ml/llms-ctx.txt), which does not
-include the optional URLs, and
+process the llms.txt file, since it will depend on the application. For
+example, the FastHTML project opted to automatically expand the llms.txt
+to two markdown files with the contents of the linked URLs, using an
+XML-based structure suitable for use in LLMs such as Claude. The two
+files are: [llms-ctx.txt](https://docs.fastht.ml/llms-ctx.txt), which
+does not include the optional URLs, and
 [llms-ctx-full.txt](https://docs.fastht.ml/llms-ctx-full.txt), which
 does include them. They are created using the
 [`llms_txt2ctx`](https://llmstxt.org/intro.html#cli) command line
 application, and the FastHTML documentation includes information for
 users about how to use them.
 
-llms.txt files can be used in various scenarios. For software libraries,
-they can provide a structured overview of documentation, making it
-easier for LLMs to locate specific features or usage examples. In
-corporate websites, they can outline organizational structure and key
-information sources. Information about new legislation and necessary
-background and context could be curated in an `llms.txt` file to help
-stakeholders understand it.
+The versatility of llms.txt files means they can serve many purposes -
+from helping developers find their way around software documentation, to
+giving businesses a way to outline their structure, or even breaking
+down complex legislation for stakeholders. They’re just as useful for
+personal websites where they can help answer questions about someone’s
+CV, for e-commerce sites to explain products and policies, or for
+schools and universities to provide quick access to their course
+information and resources.
 
-llms.txt files can be adapted for various domains. Personal portfolio or
-CV websites could use them to help answer questions about an individual.
-In e-commerce, they could outline product categories and policies.
-Educational institutions might use them to summarize course offerings
-and resources.
+Note that all [nbdev](https://nbdev.fast.ai/) projects now create .md
+versions of all pages by default. All Answer.AI and fast.ai software
+projects using nbdev have had their docs regenerated with this feature.
+For an example, see the [markdown
+version](https://fastcore.fast.ai/docments.html.md) of [fastcore’s
+docments module](https://fastcore.fast.ai/docments.html).
 
 ## Format
 
@@ -105,13 +86,12 @@ The `llms.txt` file is unusual in that it uses Markdown to structure the
 information rather than a classic structured format such as XML. The
 reason for this is that we expect many of these files to be read by
 language models and agents. Having said that, the information in
-`llms.txt` follows a specific format and can be read using standard
+llms.txt follows a specific format and can be read using standard
 programmatic-based tools.
 
-The `llms.txt` file spec is for files located in the root path
-`/llms.txt` of a website (or, optionally, in a subpath). A file
-following the spec contains the following sections as markdown, in the
-specific order:
+The llms.txt file spec is for files located in the root path `/llms.txt`
+of a website (or, optionally, in a subpath). A file following the spec
+contains the following sections as markdown, in the specific order:
 
 - An H1 with the name of the project or site. This is the only required
   section
@@ -199,7 +179,7 @@ Important notes:
 
 ## Docs
 
-- [FastHTML quick start](https://docs.fastht.ml/path/quickstart.html.md): A brief overview of many FastHTML features
+- [FastHTML quick start](https://docs.fastht.ml/tutorials/quickstart_for_web_devs.html.md): A brief overview of many FastHTML features
 - [HTMX reference](https://raw.githubusercontent.com/path/reference.md): Brief description of all HTMX attributes, CSS classes, headers, events, extensions, js lib methods, and config options
 
 ## Examples
@@ -218,16 +198,23 @@ Run a tool that expands your `llms.txt` file into an LLM context file
 and test a number of language models to see if they can answer questions
 about your content.
 
+## Directories
+
+Here are a few directories that list the `llms.txt` files available on
+the web:
+
+- [llmstxt.site](https://llmstxt.site/)
+- [directory.llmstxt.cloud](https://directory.llmstxt.cloud/)
+
 ## Next steps
 
 The `llms.txt` specification is open for community input. A [GitHub
 repository](https://github.com/AnswerDotAI/llms-txt) hosts [this
 informal
 overview](https://github.com/AnswerDotAI/llms-txt/blob/main/nbs/index.md),
-allowing for version control and public discussion. A community discord
-channel is available for sharing implementation experiences and
-discussing best practices.</doc>
-    <doc title="Python library docs" desc="Docs for `llms-txt` python lib"># Python module & CLI
+allowing for version control and public discussion. A [community discord
+channel](https://discord.gg/aJPygMvPEN) is available for sharing
+implementation experiences and discussing best practices.</doc><doc title="Python library docs" desc="Docs for `llms-txt` python lib"># Python module & CLI
 
 
 
@@ -375,8 +362,7 @@ def parse_llms_txt(txt):
 ```
 
 We have provided a test suite in `tests/test-parse.py` and confirmed
-that this implementation passes all tests.</doc>
-    <doc title="ed demo" desc="Tongue-in-cheek example of how llms.txt could be used in the classic `ed` editor, used to show how editors could incorporate llms.txt in general.">
+that this implementation passes all tests.</doc><doc title="ed demo" desc="Tongue-in-cheek example of how llms.txt could be used in the classic `ed` editor, used to show how editors could incorporate llms.txt in general.">
 
 # `ed`, the standard text editor
 
@@ -457,7 +443,4 @@ at how much functionality is packed into those 5 lines.
 
 Finally, our user saves the app to a file and quits `ed`, presumably to
 run their new FastHTML app and reflect on the unexpected productivity
-boost provided by their trusty line editor.</doc>
-  </docs>
-</project>
-
+boost provided by their trusty line editor.</doc></docs></project>
