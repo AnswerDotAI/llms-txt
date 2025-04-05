@@ -78,7 +78,7 @@ sitemap.xml is a list of all the indexable human-readable information available 
 
 ## Example
 
-Here’s an example of `llms.txt`, in this case a cut down version of the file used for the FastHTML project (see also the [full version](https://answerdotai.github.io/fasthtml/llms.txt):
+Here’s an example of `llms.txt`, in this case a cut down version of the file used for the FastHTML project (see also the [full version](https://answerdotai.github.io/fasthtml/llms.txt)):
 
 ```markdown
 # FastHTML
