@@ -125,6 +125,7 @@ Various tools and plugins are available to help integrate the llms.txt specifica
 - [`llms_txt2ctx`](https://llmstxt.org/intro.html#cli) - CLI and Python module for parsing llms.txt files and generating LLM context
 - [JavaScript Implementation](./llmstxt-js.html) - Sample JavaScript implementation
 - [vite-plugin-llms](https://github.com/saschaseniuk/vite-plugin-llms) - Vite plugin that serves markdown files alongside your routes following the llms.txt specification
+- [Drupal llms.txt module](https://www.drupal.org/project/llmstxt) - Drupal module for adding and managing the contents of llms.txt file through a simple admin interface.
 
 ## Next steps
 
