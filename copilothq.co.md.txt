@@ -1,0 +1,13 @@
+# CopilotHQ
+> CopilotHQ is a top 10 AI consulting firm in Australia, helping businesses nationwide integrate AI across all functions. We offer end-to-end services, from strategy and development to ongoing AI management.
+
+## Services
+- [AI Strategic Advisory](https://www.copilothq.co/strategic-advisory): Tailored AI strategies to support growth.
+- [AI Automation and Development](https://www.copilothq.co/ai-development): Developing AI Automation.
+- [AI Agents](https://www.copilothq.co/ai-agents): AI agents to help with admin, marketing, operations, human resources, management and sales.
+
+## About
+- [Who We Are](https://www.copilothq.co/about)
+
+## Contact
+- [https://www.copilothq.co/contact](https://www.copilothq.co/contact)
