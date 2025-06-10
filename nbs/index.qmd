@@ -111,6 +111,39 @@ To create effective `llms.txt` files, consider these guidelines:
 - Avoid ambiguous terms or unexplained jargon.
 - Run a tool that expands your `llms.txt` file into an LLM context file and test a number of language models to see if they can answer questions about your content.
 
+## Additional Files
+
+In addition to the `llms.txt` file, there are other related files.
+
+### The -full File
+
+As outlined above, the `llms.txt` file contains markdown links and descriptions for other pages on the site for LLM ingestion.
+
+Providing all the content of a site can be helpful as well. This file should be named `llms-full.txt`, and will provide all the content with no need for further crawling or downloading.
+
+When generating a `llms-full.txt` file, be aware of the limits on the context window size. Prune it as needed.
+
+This is also referred to as the `-ctx` file above.
+
+### The -index File
+
+If you have a large site, different sections may be managed by different software. Or, it may not make sense to provide context to an LLM across different sections of your site. In this case, you can create multiple `llms.txt` and `llms-full.txt` files and place them at different paths in the site. 
+
+You can help LLM crawlers discover these files by creating a `llms-index.txt` file. This file lives at the root level of the site: `/llms-index.txt`.
+
+This file lists all the `llms.txt` related files. Example contents:
+
+```
+/llms.txt
+/llms-full.txt
+/product1/feature1/llms.txt
+/product1/feature1/llms-full.txt
+/product1/feature2/llms.txt
+/product1/feature2/llms-full.txt
+/product2/llms.txt
+/product2/llms-full.txt
+```
+
 ## Directories
 
 Here are a few directories that list the `llms.txt` files available on the web:
