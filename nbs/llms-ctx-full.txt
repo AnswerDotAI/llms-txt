@@ -40,20 +40,20 @@ instead.)
 
 The [FastHTML project](https://fastht.ml) follows these two proposals
 for its documentation. For instance, here is the [FastHTML docs
-llms.txt](https://docs.fastht.ml/llms.txt). And here is an example of a
+llms.txt](https://fastht.ml/docs/llms.txt). And here is an example of a
 [regular HTML docs
-page](https://docs.fastht.ml/tutorials/by_example.html), along with
+page](https://fastht.ml/docs/tutorials/by_example.html), along with
 exact same URL but with [a .md
-extension](https://docs.fastht.ml/tutorials/by_example.html.md).
+extension](https://fastht.ml/docs/tutorials/by_example.html.md).
 
 This proposal does not include any particular recommendation for how to
 process the llms.txt file, since it will depend on the application. For
 example, the FastHTML project opted to automatically expand the llms.txt
 to two markdown files with the contents of the linked URLs, using an
 XML-based structure suitable for use in LLMs such as Claude. The two
-files are: [llms-ctx.txt](https://docs.fastht.ml/llms-ctx.txt), which
+files are: [llms-ctx.txt](https://fastht.ml/docs/llms-ctx.txt), which
 does not include the optional URLs, and
-[llms-ctx-full.txt](https://docs.fastht.ml/llms-ctx-full.txt), which
+[llms-ctx-full.txt](https://fastht.ml/docs/llms-ctx-full.txt), which
 does include them. They are created using the
 [`llms_txt2ctx`](https://llmstxt.org/intro.html#cli) command line
 application, and the FastHTML documentation includes information for
@@ -165,7 +165,7 @@ available on a site. This isn’t a substitute for `llms.txt` since it:
 
 Here’s an example of `llms.txt`, in this case a cut down version of the
 file used for the FastHTML project (see also the [full
-version](https://docs.fastht.ml/llms.txt):
+version](https://fastht.ml/docs/llms.txt):
 
 ``` markdown
 # FastHTML
@@ -179,7 +179,7 @@ Important notes:
 
 ## Docs
 
-- [FastHTML quick start](https://docs.fastht.ml/tutorials/quickstart_for_web_devs.html.md): A brief overview of many FastHTML features
+- [FastHTML quick start](https://fastht.ml/docs/tutorials/quickstart_for_web_devs.html.md): A brief overview of many FastHTML features
 - [HTMX reference](https://raw.githubusercontent.com/path/reference.md): Brief description of all HTMX attributes, CSS classes, headers, events, extensions, js lib methods, and config options
 
 ## Examples
@@ -371,7 +371,7 @@ let’s look at how `ed`, the [standard text
 editor](https://www.gnu.org/fun/jokes/ed-msg.html), could work (assuming
 it’s updated to use this proposal). In our example we will look at how
 the user might then tell `ed` to retrieve the LLM docs from
-[docs.fastht.ml](https://docs.fastht.ml), and then use the results to
+[fastht.ml/docs](https://fastht.ml/docs), and then use the results to
 write a simple [FastHTML](https://fastht.ml) web app.
 
 Even if you use a non-standard editor or IDE such as vscode, Cursor,
@@ -388,8 +388,8 @@ purpose of this walkthru - obviously a real `ed` user doesn’t need
 “helpful error messages”).
 
 ``` sh
-* L docs.fastht.ml
-Checking for /llms.txt at docs.fastht.ml...
+* L fastht.ml/docs
+Checking for /llms.txt at fastht.ml/docs...
 Found /llms.txt. Parsing...
 Fetching URLs from "Docs" section...  Fetching URLs from "Examples" section...
 Skipping "Optional" section for brevity.

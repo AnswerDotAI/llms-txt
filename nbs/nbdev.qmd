@@ -177,7 +177,7 @@ Remember to manually add a link to the generated `apilist.txt` in your `llms.txt
 
 ## Learning from examples
 
-It is often useful to study how others went about implementing the thing we are working on. The [fastcore](https://fastcore.fast.ai/llms.txt) and [FastHTML](https://docs.fastht.ml/) projects offer a good reference, and you can find additional examples in the [llmstxt.site](https://llmstxt.site/) and [llmstxt.cloud](https://directory.llmstxt.cloud/) directories.
+It is often useful to study how others went about implementing the thing we are working on. The [fastcore](https://fastcore.fast.ai/llms.txt) and [FastHTML](https://fastht.ml/docs/) projects offer a good reference, and you can find additional examples in the [llmstxt.site](https://llmstxt.site/) and [llmstxt.cloud](https://directory.llmstxt.cloud/) directories.
 
 To see all the necessary changes in one place, here's a [complete example](https://github.com/AnswerDotAI/nbdev/pull/1485/files) of adding `llms.txt` to an existing nbdev project.
 

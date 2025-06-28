@@ -1,6 +1,6 @@
 # `ed`, the standard text editor
 
-In order to understand how llms.txt can be used with editors and IDEs, let's look at how `ed`, the [standard text editor](https://www.gnu.org/fun/jokes/ed-msg.html), could work (assuming it's updated to use this proposal). In our example we will look at how the user might then tell `ed` to retrieve the LLM docs from [docs.fastht.ml](https://docs.fastht.ml), and then use the results to write a simple [FastHTML](https://fastht.ml) web app.
+In order to understand how llms.txt can be used with editors and IDEs, let's look at how `ed`, the [standard text editor](https://www.gnu.org/fun/jokes/ed-msg.html), could work (assuming it's updated to use this proposal). In our example we will look at how the user might then tell `ed` to retrieve the LLM docs from [fastht.ml/docs](https://fastht.ml/docs), and then use the results to write a simple [FastHTML](https://fastht.ml) web app.
 
 Even if you use a non-standard editor or IDE such as vscode, Cursor, vim, or Emacs, your software's interaction with `/llms.txt` would look similar to this general approach.
 
@@ -12,8 +12,8 @@ $ ed
 Our user starts `ed` and enables helpful error messages (just for the purpose of this walkthru - obviously a real `ed` user doesn't need "helpful error messages").
 
 ```sh
-* L docs.fastht.ml
-Checking for /llms.txt at docs.fastht.ml...
+* L fastht.ml/docs
+Checking for /llms.txt at fastht.ml/docs...
 Found /llms.txt. Parsing...
 Fetching URLs from "Docs" section...  Fetching URLs from "Examples" section...
 Skipping "Optional" section for brevity.
