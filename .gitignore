@@ -1,3 +1,6 @@
+/.quarto/
+site_libs/
+
 fasthtml.md
 posts/
 .quarto
