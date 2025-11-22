@@ -129,6 +129,7 @@ Various tools and plugins are available to help integrate the llms.txt specifica
 - [`docusaurus-plugin-llms`](https://github.com/rachfop/docusaurus-plugin-llms) - Docusaurus plugin for generating LLM-friendly documentation following the llmtxt.org standard
 - [Drupal LLM Support](https://www.drupal.org/project/llm_support) - A Drupal Recipe providing full support for the llms.txt proposal on any Drupal 10.3+ site
 - [`llms-txt-php`](https://github.com/raphaelstolt/llms-txt-php) - A library for writing and reading llms.txt Markdown files
+- [Hugo llms.txt](https://github.com/roverbird/llms-hugo) - A setup for Hugo Static Site Generator to write llms.txt.
 
 ## Next steps
 
