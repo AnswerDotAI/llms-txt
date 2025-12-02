@@ -1,7 +1,7 @@
 website:
   sidebar:
     contents:
-      - index.md
+      - index.qmd
       - section: Code
         contents:
           - 00_intro.ipynb
@@ -11,7 +11,7 @@ website:
       - section: Editors and IDEs
         contents:
           - ed.md
-      - section: Guidlines
+      - section: Tutorials
         contents:
           - domains.md
-
+          - nbdev.qmd
