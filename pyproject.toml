@@ -24,8 +24,14 @@ Documentation = "https://llmstxt.org/"
 [project.entry-points.nbdev]
 llms_txt = "llms_txt._modidx:d"
 
+[project.scripts]
+llms_txt2ctx=llms_txt.core:llms_txt2ctx
+
 [tool.setuptools.dynamic]
 version = {attr = "llms_txt.__version__"}
+
+[project.scripts]
+llms_txt2ctx=llms_txt.core:llms_txt2ctx
 
 [tool.setuptools.packages.find]
 include = ["llms_txt"]
