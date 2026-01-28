@@ -3,19 +3,16 @@ requires = ["setuptools>=64"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name="llms-txt"
+name = "llms-txt"
 dynamic = ["version"]
 description = "The /llms.txt file, helping language models use your website"
 readme = "README.md"
-requires-python=">=3.8"
+requires-python = ">=3.8"
 license = {text = "Apache-2.0"}
 authors = [{name = "Jeremy Howard", email = "github@jhoward.fastmail.fm"}]
 keywords = ['nbdev', 'jupyter', 'notebook', 'python', 'LLMs', 'NLP']
-classifiers = [
-    "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3 :: Only",
-]
-dependencies = ["fastcore>=1.7.3","httpx","mistletoe"]
+classifiers = ["Natural Language :: English", "Intended Audience :: Developers", "Development Status :: 3 - Alpha", "Programming Language :: Python :: 3", "Programming Language :: Python :: 3 :: Only"]
+dependencies = ['fastcore>=1.7.3', 'httpx', 'mistletoe']
 
 [project.urls]
 Repository = "https://github.com/AnswerDotAI/llms-txt"
@@ -24,8 +21,11 @@ Documentation = "https://llmstxt.org/"
 [project.entry-points.nbdev]
 llms_txt = "llms_txt._modidx:d"
 
+
 [project.scripts]
 llms_txt2ctx = "llms_txt.core:llms_txt2ctx"
+llms_txt2html = "llms_txt.txt2html:main"
+
 [tool.setuptools.dynamic]
 version = {attr = "llms_txt.__version__"}
 
