@@ -15,7 +15,7 @@ classifiers = [
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3 :: Only",
 ]
-dependencies = []
+dependencies = ["fastcore>=1.7.3","httpx","mistletoe"]
 
 [project.urls]
 Repository = "https://github.com/AnswerDotAI/llms-txt"
