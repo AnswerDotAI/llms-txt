@@ -1,0 +1,279 @@
+[
+  {
+    "objectID": "intro.html",
+    "href": "intro.html",
+    "title": "Python module & CLI",
+    "section": "",
+    "text": "Given an llms.txt file, this provides a CLI and Python API to parse the file and create an XML context file from it. The input file should follow this format:",
+    "crumbs": [
+      "Code",
+      "Python module & CLI"
+    ]
+  },
+  {
+    "objectID": "intro.html#install",
+    "href": "intro.html#install",
+    "title": "Python module & CLI",
+    "section": "Install",
+    "text": "Install\npip install llms-txt",
+    "crumbs": [
+      "Code",
+      "Python module & CLI"
+    ]
+  },
+  {
+    "objectID": "intro.html#how-to-use",
+    "href": "intro.html#how-to-use",
+    "title": "Python module & CLI",
+    "section": "How to use",
+    "text": "How to use\n\nCLI\nAfter installation, llms_txt2ctx is available in your terminal.\nTo get help for the CLI:\nllms_txt2ctx -h\nTo convert an llms.txt file to XML context and save to llms.md:\nllms_txt2ctx llms.txt &gt; llms.md\nPass --optional True to add the ‘optional’ section of the input file.\n\n\nPython module\n\nfrom llms_txt import *\n\n\nsamp = Path('llms-sample.txt').read_text()\n\nUse parse_llms_file to create a data structure with the sections of an llms.txt file (you can also add optional=True if needed):\n\nparsed = parse_llms_file(samp)\nlist(parsed)\n\n['title', 'summary', 'info', 'sections']\n\n\n\nparsed.title,parsed.summary\n\n('FastHTML',\n 'FastHTML is a python library which brings together Starlette, Uvicorn, HTMX, and fastcore\\'s `FT` \"FastTags\" into a library for creating server-rendered hypermedia applications.')\n\n\n\nlist(parsed.sections)\n\n['Docs', 'Examples', 'Optional']\n\n\n\nparsed.sections.Optional[0]\n\n{ 'desc': 'A subset of the Starlette documentation useful for FastHTML '\n          'development.',\n  'title': 'Starlette full documentation',\n  'url': 'https://gist.githubusercontent.com/jph00/809e4a4808d4510be0e3dc9565e9cbd3/raw/9b717589ca44cedc8aaf00b2b8cacef922964c0f/starlette-sml.md'}\n\n\nUse create_ctx to create an LLM context file with XML sections, suitable for systems such as Claude (this is what the CLI calls behind the scenes).\n\nctx = create_ctx(samp)\n\n\nprint(ctx[:300])\n\n&lt;project title=\"FastHTML\" summary='FastHTML is a python library which brings together Starlette, Uvicorn, HTMX, and fastcore&#39;s `FT` \"FastTags\" into a library for creating server-rendered hypermedia applications.'&gt;\nRemember:\n\n- Use `serve()` for running uvicorn (`if __name__ == \"__main__\"` is not\n\n\n\n\nImplementation and tests\nTo show how simple it is to parse llms.txt files, here’s a complete parser in &lt;20 lines of code with no dependencies:\nfrom pathlib import Path\nimport re,itertools\n\ndef chunked(it, chunk_sz):\n    it = iter(it)\n    return iter(lambda: list(itertools.islice(it, chunk_sz)), [])\n\ndef parse_llms_txt(txt):\n    \"Parse llms.txt file contents in `txt` to a `dict`\"\n    def _p(links):\n        link_pat = '-\\s*\\[(?P&lt;title&gt;[^\\]]+)\\]\\((?P&lt;url&gt;[^\\)]+)\\)(?::\\s*(?P&lt;desc&gt;.*))?'\n        return [re.search(link_pat, l).groupdict()\n                for l in re.split(r'\\n+', links.strip()) if l.strip()]\n\n    start,*rest = re.split(fr'^##\\s*(.*?$)', txt, flags=re.MULTILINE)\n    sects = {k: _p(v) for k,v in dict(chunked(rest, 2)).items()}\n    pat = '^#\\s*(?P&lt;title&gt;.+?$)\\n+(?:^&gt;\\s*(?P&lt;summary&gt;.+?$)$)?\\n+(?P&lt;info&gt;.*)'\n    d = re.search(pat, start.strip(), (re.MULTILINE|re.DOTALL)).groupdict()\n    d['sections'] = sects\n    return d\nWe have provided a test suite in tests/test-parse.py and confirmed that this implementation passes all tests.",
+    "crumbs": [
+      "Code",
+      "Python module & CLI"
+    ]
+  },
+  {
+    "objectID": "core.html",
+    "href": "core.html",
+    "title": "Python source",
+    "section": "",
+    "text": "The llms.txt file spec is for files located in the path llms.txt of a website (or, optionally, in a subpath). llms-sample.txt is a simple example. A file following the spec contains the following sections as markdown, in the specific order:\n\nAn H1 with the name of the project or site. This is the only required section\nA blockquote with a short summary of the project, containing key information necessary for understanding the rest of the file\nZero or more markdown sections (e.g. paragraphs, lists, etc) of any type, except headings, containing more detailed information about the project and how to interpret the provided files\nZero or more markdown sections delimited by H2 headers, containing “file lists” of URLs where further detail is available\n\nEach “file list” is a markdown list, containing a required markdown hyperlink [name](url), then optionally a : and notes about the file.\n\n\nHere’s the start of a sample llms.txt file we’ll use for testing:\n\nsamp = Path('llms-sample.txt').read_text()\nprint(samp[:480])\n\n# FastHTML\n\n&gt; FastHTML is a python library which brings together Starlette, Uvicorn, HTMX, and fastcore's `FT` \"FastTags\" into a library for creating server-rendered hypermedia applications.\n\nRemember:\n\n- Use `serve()` for running uvicorn (`if __name__ == \"__main__\"` is not needed since it's automatic)\n- When a title is needed with a response, use `Titled`; note that that already wraps children in `Container`, and already includes both the meta title as well as the H1 element",
+    "crumbs": [
+      "Code",
+      "Python source"
+    ]
+  },
+  {
+    "objectID": "core.html#introduction",
+    "href": "core.html#introduction",
+    "title": "Python source",
+    "section": "",
+    "text": "The llms.txt file spec is for files located in the path llms.txt of a website (or, optionally, in a subpath). llms-sample.txt is a simple example. A file following the spec contains the following sections as markdown, in the specific order:\n\nAn H1 with the name of the project or site. This is the only required section\nA blockquote with a short summary of the project, containing key information necessary for understanding the rest of the file\nZero or more markdown sections (e.g. paragraphs, lists, etc) of any type, except headings, containing more detailed information about the project and how to interpret the provided files\nZero or more markdown sections delimited by H2 headers, containing “file lists” of URLs where further detail is available\n\nEach “file list” is a markdown list, containing a required markdown hyperlink [name](url), then optionally a : and notes about the file.\n\n\nHere’s the start of a sample llms.txt file we’ll use for testing:\n\nsamp = Path('llms-sample.txt').read_text()\nprint(samp[:480])\n\n# FastHTML\n\n&gt; FastHTML is a python library which brings together Starlette, Uvicorn, HTMX, and fastcore's `FT` \"FastTags\" into a library for creating server-rendered hypermedia applications.\n\nRemember:\n\n- Use `serve()` for running uvicorn (`if __name__ == \"__main__\"` is not needed since it's automatic)\n- When a title is needed with a response, use `Titled`; note that that already wraps children in `Container`, and already includes both the meta title as well as the H1 element",
+    "crumbs": [
+      "Code",
+      "Python source"
+    ]
+  },
+  {
+    "objectID": "core.html#reading",
+    "href": "core.html#reading",
+    "title": "Python source",
+    "section": "Reading",
+    "text": "Reading\nWe’ll implement parse_llms_file to pull out the sections of llms.txt into a simple data structure.\n\n\nsearch\n\ndef search(\n    pat, txt, flags:int=0\n):\n\nDictionary of matched groups in pat within txt\n\n\n\nnamed_re\n\ndef named_re(\n    nm, pat\n):\n\nPattern to match pat in a named capture group\n\n\n\nopt_re\n\ndef opt_re(\n    s\n):\n\nPattern to optionally match s\nWe’ll work “outside in” so we can test the innermost matches as we go.\n\n\nParse links\n\nlink = '- [FastHTML quick start](https://fastht.ml/docs/tutorials/quickstart_for_web_devs.html.md): A brief overview of FastHTML features'\n\n\ntitle = named_re('title', r'[^\\]]+')\npat =  fr'-\\s*\\[{title}\\]'\nsearch(pat, samp)\n\n{'title': 'FastHTML quick start'}\n\n\n\nurl = named_re('url', r'[^\\)]+')\npat += fr'\\({url}\\)'\nsearch(pat, samp)\n\n{'title': 'FastHTML quick start',\n 'url': 'https://fastht.ml/docs/tutorials/quickstart_for_web_devs.html.md'}\n\n\n\ndesc = named_re('desc', r'.*')\npat += opt_re(fr':\\s*{desc}')\nsearch(pat, link)\n\n{'title': 'FastHTML quick start',\n 'url': 'https://fastht.ml/docs/tutorials/quickstart_for_web_devs.html.md',\n 'desc': 'A brief overview of FastHTML features'}\n\n\n\n\n\nparse_link\n\ndef parse_link(\n    txt\n):\n\nParse a link section from llms.txt\n\nparse_link(link)\n\n{'title': 'FastHTML quick start',\n 'url': 'https://fastht.ml/docs/tutorials/quickstart_for_web_devs.html.md',\n 'desc': 'A brief overview of FastHTML features'}\n\n\n\nparse_link('-[foo](http://foo)')\n\n{'title': 'foo', 'url': 'http://foo', 'desc': None}\n\n\n\n\nParse sections\n\nsections = '''First bit.\n\n## S1\n\n-[foo](http://foo)\n- [foo2](http://foo2): stuff\n\n## S2\n\n- [foo3](http://foo3)'''\n\n\nstart,*rest = re.split(fr'^##\\s*(.*?$)', sections, flags=re.MULTILINE)\nstart\n\n'First bit.\\n\\n'\n\n\n\nrest\n\n['S1',\n '\\n\\n-[foo](http://foo)\\n- [foo2](http://foo2): stuff\\n\\n',\n 'S2',\n '\\n\\n- [foo3](http://foo3)']\n\n\n\nd = dict(chunked(rest, 2))\nd\n\n{'S1': '\\n\\n-[foo](http://foo)\\n- [foo2](http://foo2): stuff\\n\\n',\n 'S2': '\\n\\n- [foo3](http://foo3)'}\n\n\n\nlinks = d['S1']\nlinks.strip()\n\n'-[foo](http://foo)\\n- [foo2](http://foo2): stuff'\n\n\n\n_parse_links(links)\n\n[{'title': 'foo', 'url': 'http://foo', 'desc': None},\n {'title': 'foo2', 'url': 'http://foo2', 'desc': 'stuff'}]\n\n\n\nstart, sects = _parse_llms(samp)\nstart\n\n'# FastHTML\\n\\n&gt; FastHTML is a python library which brings together Starlette, Uvicorn, HTMX, and fastcore\\'s `FT` \"FastTags\" into a library for creating server-rendered hypermedia applications.\\n\\nRemember:\\n\\n- Use `serve()` for running uvicorn (`if __name__ == \"__main__\"` is not needed since it\\'s automatic)\\n- When a title is needed with a response, use `Titled`; note that that already wraps children in `Container`, and already includes both the meta title as well as the H1 element.'\n\n\n\ntitle = named_re('title', r'.+?$')\nsumm = named_re('summary', '.+?$')\nsumm_pat = opt_re(fr\"^&gt;\\s*{summ}$\")\ninfo = named_re('info', '.*')\n\n\npat = fr'^#\\s*{title}\\n+{summ_pat}\\n+{info}'\nsearch(pat, start, (re.MULTILINE|re.DOTALL))\n\n{'title': 'FastHTML',\n 'summary': 'FastHTML is a python library which brings together Starlette, Uvicorn, HTMX, and fastcore\\'s `FT` \"FastTags\" into a library for creating server-rendered hypermedia applications.',\n 'info': 'Remember:\\n\\n- Use `serve()` for running uvicorn (`if __name__ == \"__main__\"` is not needed since it\\'s automatic)\\n- When a title is needed with a response, use `Titled`; note that that already wraps children in `Container`, and already includes both the meta title as well as the H1 element.'}\n\n\n\n\n\nparse_llms_file\n\ndef parse_llms_file(\n    txt\n):\n\nParse llms.txt file contents in txt to an AttrDict\n\nllmsd = parse_llms_file(samp)\nllmsd.summary\n\n'FastHTML is a python library which brings together Starlette, Uvicorn, HTMX, and fastcore\\'s `FT` \"FastTags\" into a library for creating server-rendered hypermedia applications.'\n\n\n\nllmsd.sections.Examples\n\n[{'title': 'Todo list application', 'url': 'https://raw.githubusercontent.com/AnswerDotAI/fasthtml/main/examples/adv_app.py', 'desc': 'Detailed walk-thru of a complete CRUD app in FastHTML showing idiomatic use of FastHTML and HTMX patterns.'}]",
+    "crumbs": [
+      "Code",
+      "Python source"
+    ]
+  },
+  {
+    "objectID": "core.html#xml-conversion",
+    "href": "core.html#xml-conversion",
+    "title": "Python source",
+    "section": "XML conversion",
+    "text": "XML conversion\nFor some LLMs such as Claude, XML format is preferred, so we’ll provide a function to create that format.\n\n\nget_doc_content\n\ndef get_doc_content(\n    url\n):\n\nFetch content from local file if in nbdev repo.\n\n\n\nmk_ctx\n\ndef mk_ctx(\n    d, optional:bool=True, n_workers:NoneType=None\n):\n\nCreate a Project with a Section for each H2 part in d, optionally skipping the ‘optional’ section.\n\nctx = mk_ctx(llmsd)\nprint(to_xml(ctx, do_escape=False)[:260]+'...')\n\n{'title': 'FastHTML quick start', 'url': 'https://fastht.ml/docs/tutorials/quickstart_for_web_devs.html.md', 'desc': 'A brief overview of FastHTML features'}{'title': 'HTMX reference', 'url': 'https://raw.githubusercontent.com/bigskysoftware/htmx/master/www/content/reference.md', 'desc': 'Brief description of all HTMX attributes, CSS classes, headers, events, extensions, js lib methods, and config options'}\n\n{'title': 'Starlette quick guide', 'url': 'https://gist.githubusercontent.com/jph00/e91192e9bdc1640f5421ce3c904f2efb/raw/61a2774912414029edaf1a55b506f0e283b93c46/starlette-quick.md', 'desc': {}}\n{'title': 'Todo list application', 'url': 'https://raw.githubusercontent.com/AnswerDotAI/fasthtml/main/examples/adv_app.py', 'desc': 'Detailed walk-thru of a complete CRUD app in FastHTML showing idiomatic use of FastHTML and HTMX patterns.'}\n{'title': 'Starlette full documentation', 'url': 'https://gist.githubusercontent.com/jph00/809e4a4808d4510be0e3dc9565e9cbd3/raw/9b717589ca44cedc8aaf00b2b8cacef922964c0f/starlette-sml.md', 'desc': 'A subset of the Starlette documentation useful for FastHTML development.'}\n&lt;project title=\"FastHTML\" summary='FastHTML is a python library which brings together Starlette, Uvicorn, HTMX, and fastcore&#39;s `FT` \"FastTags\" into a library for creating server-rendered hypermedia applications.'&gt;Remember:\n\n- Use `serve()` for running uvic...\n\n\n\n\n\nget_sizes\n\ndef get_sizes(\n    ctx\n):\n\nGet the size of each section of the LLM context\n\nget_sizes(ctx)\n\n{'docs': {'FastHTML quick start': 35321,\n  'HTMX reference': 28365,\n  'Starlette quick guide': 7936},\n 'examples': {'Todo list application': 16032},\n 'optional': {'Starlette full documentation': 48331}}\n\n\n\nPath('../fasthtml.md').write_text(to_xml(ctx, do_escape=False))\n\n137125\n\n\n\n\n\ncreate_ctx\n\ndef create_ctx(\n    txt, optional:bool=False, n_workers:NoneType=None\n):\n\nA Project with a Section for each H2 part in txt, optionally skipping the ‘optional’ section.\n\n\n\nllms_txt2ctx\n\ndef llms_txt2ctx(\n    fname:str, # File name to read\n    optional:bool_arg=False, # Include 'optional' section?\n    n_workers:int=None, # Number of threads to use for parallel downloading\n    save_nbdev_fname:str=None, # save output to nbdev `{docs_path}` instead of emitting to stdout\n):\n\nPrint a Project with a Section for each H2 part in file read from fname, optionally skipping the ‘optional’ section.\n\n!llms_txt2ctx llms-sample.txt &gt; ../fasthtml.md",
+    "crumbs": [
+      "Code",
+      "Python source"
+    ]
+  },
+  {
+    "objectID": "nbdev.html",
+    "href": "nbdev.html",
+    "title": "How to help LLMs understand your nbdev project",
+    "section": "",
+    "text": "This tutorial demonstrates how to add llms.txt to your nbdev project, creating a clear interface between your code and LLMs. You’ll learn to generate llms-ctx.txt and llms-ctx-full.txt files and integrate them with your documentation.\nWhile this guide focuses on nbdev, the underlying principles and tools are framework-agnostic and can help make any codebase more accessible to LLMs.\nLet’s explore how to implement this.",
+    "crumbs": [
+      "Tutorials",
+      "How to help LLMs understand your nbdev project"
+    ]
+  },
+  {
+    "objectID": "nbdev.html#overview",
+    "href": "nbdev.html#overview",
+    "title": "How to help LLMs understand your nbdev project",
+    "section": "",
+    "text": "This tutorial demonstrates how to add llms.txt to your nbdev project, creating a clear interface between your code and LLMs. You’ll learn to generate llms-ctx.txt and llms-ctx-full.txt files and integrate them with your documentation.\nWhile this guide focuses on nbdev, the underlying principles and tools are framework-agnostic and can help make any codebase more accessible to LLMs.\nLet’s explore how to implement this.",
+    "crumbs": [
+      "Tutorials",
+      "How to help LLMs understand your nbdev project"
+    ]
+  },
+  {
+    "objectID": "nbdev.html#the-key-ingredient-llms.txt",
+    "href": "nbdev.html#the-key-ingredient-llms.txt",
+    "title": "How to help LLMs understand your nbdev project",
+    "section": "The key ingredient: llms.txt",
+    "text": "The key ingredient: llms.txt\nThe foundation of LLM-friendly documentation is the llms.txt file. At its core, it is just a Markdown file with information about your library found at a specific URL (root of your site followed by /llms.txt).\nHowever, it needs to follow a certain structure as outlined in the llms.txt format.\nDo not be intimidated by the specification, though. In reality, it offers a lot of flexibility and by conforming to it you’ll gain access to several very helpful tools that we will look at in a second.\nFirst, let’s start working on our llms.txt file. If you would like to, you can open your favorite editor and start working on an llms.txt for your library as we go along.\nHere is how the llms.txt file could begin:\n# FastHTML\n\n&gt; FastHTML is a python library which...\n\nWhen writing FastHTML apps remember to:\n\n- Thing to remember\nThe required elements are:\n\nthe H1 header (FastHTML)\na blockquote with a short summary of the project (FastHTML is a python library which…)\n\nAnd they can optionally be followed by zero or more paragraphs and lists. Usually, this is the place where you would add a short description of your library.\nThe description can be as simple as this (this is an excerpt from the llms.txt for fastcore):\nHere are some tips on using fastcore:\n\n- **Liberal imports**: Utilize `from fastcore.module import *` freely. The library is designed for safe wildcard imports.\n- **Enhanced list operations**: Substitute `list` with `L`. This provides advanced indexing, method chaining, and additional functionality while maintaining list-like behavior.\n- **Extend existing classes**: Apply the `@patch` decorator to add methods to classes, including built-ins, without subclassing. This enables more flexible code organization.\nBelow are a few ideas on how to make writing the description feel even more seamless:\n\nConsider the content you already have that can be used as a starting point (e.g. your project’s README, blog posts and articles, social media discussions, etc.)\nThink of how you would describe your library to a new team member — this often yields the right balance of precision and comprehension.\nUse an LLM to help you synthetize content from multiple sources into cohesive prose (though you might need to do some post-processing to combat the LLM’s tendency to be verbose).\n\n\nAdding resource sections\nAfter the optional description, you can include zero or more sections starting with an H2 heading and containing links to supplementary resources.\nMarkdown files are strongly recommended here as they offer a good balance of structure and readability. You could attempt linking to other formats, but your results may vary. For instance, HTML tends to be verbose, and formats like CSV rarely contain information that lends itself well to documenting functionality.\nHere’s an example of what this section might look like:\n## Docs\n\n- [Surreal](https://host/README.md): Tiny jQuery alternative with Locality of Behavior\n- [FastHTML quick start](https://host/quickstart.html.md): An overview of FastHTML features\n\n## Examples\n\n- [Todo app](https://host/adv_app.py)\n\n\nThe Optional section\nIf you’d like to, you can include a section with Optional as the heading. This section has a special meaning and provides a mechanism for managing context size. Resources listed in this section appear only in llms-ctx-full.txt, while being omitted from llms-ctx.txt. This allows the user (be that a human or an agent) to choose the right amount of context based on their use case and the capabilities of the LLM they plan to use.\n\nllms.txt: just the initial section with an optional description and optional resource sections with unexpanded links\nllms-ctx.txt: as above but with links expanded apart from the ‘Optional’ section\nllms-ctx-full.txt: all sections with expanded links\n\nHere is a small example of the Optional section:\n## Optional\n\n- [Starlette docs](https://host/starlette-sml.md): A subset of the Starlette docs\nYour llms.txt file is now complete! Time to give yourself a pat on the back for a job well done and let’s move on to the next, automated step.",
+    "crumbs": [
+      "Tutorials",
+      "How to help LLMs understand your nbdev project"
+    ]
+  },
+  {
+    "objectID": "nbdev.html#generating-context-files",
+    "href": "nbdev.html#generating-context-files",
+    "title": "How to help LLMs understand your nbdev project",
+    "section": "Generating context files",
+    "text": "Generating context files\nThe llms-txt library automates the process of generating context files from your llms.txt. It can be used either through its CLI interface or as a Python module.\nUsing the CLI:\nllms_txt2ctx llms.txt --save_nbdev_fname llms-ctx.txt\nOr via Python:\nfrom llms_txt import *\nsamp = Path('llms-sample.txt').read_text()\nparsed = parse_llms_file(samp)\nBoth approaches read your llms.txt file and retrieve the linked content. This is the process that takes your llms.txt and turns it into llms-ctx.txt and llms-ctx-full.txt.\nBut there is another very exciting library — pysymbol-llm — that will allow us to add even more useful information in an automated way.",
+    "crumbs": [
+      "Tutorials",
+      "How to help LLMs understand your nbdev project"
+    ]
+  },
+  {
+    "objectID": "nbdev.html#enhancing-context-with-api-reference",
+    "href": "nbdev.html#enhancing-context-with-api-reference",
+    "title": "How to help LLMs understand your nbdev project",
+    "section": "Enhancing context with API reference",
+    "text": "Enhancing context with API reference\nWhile LLMs generally understand high-level concepts, they often struggle with implementation details, especially when their training data is outdated. Providing a comprehensive list of your library’s symbols - functions, classes, and their documentation - helps bridge this gap.\nThis is where the pysymbol-llm library enters the picture. It generates a complete API reference in Markdown, extracting existing docstrings along the way.\nThis is a short excerpt from the apilist.txt for fastcore:\n# fastcore Module Documentation\n\n## fastcore.ansi\n\n&gt; Filters for processing ANSI colors.\n\n- `def strip_ansi(source)`\n    Remove ANSI escape codes from text.\n\n- `def ansi2html(text)`\n    Convert ANSI colors to HTML colors.\n\n- `def ansi2latex(text)`\n    Convert ANSI colors to LaTeX colors.\nThe tool works great even with larger libraries. For instance, generating the API reference for numpy requires just one command:\npysym2md numpy\nTo implement this in your project, generate an apilist.txt, serve it alongside your documentation, and reference it from your llms.txt file.",
+    "crumbs": [
+      "Tutorials",
+      "How to help LLMs understand your nbdev project"
+    ]
+  },
+  {
+    "objectID": "nbdev.html#configuration",
+    "href": "nbdev.html#configuration",
+    "title": "How to help LLMs understand your nbdev project",
+    "section": "Configuration",
+    "text": "Configuration\nThe final step is to configure your nbdev project to generate and serve these context files. This requires three changes:\n\nAdd your llms.txt file to the nbs directory of your project.\nAdd the required dependencies to settings.ini:\n\ndev_requirements = pysymbol_llm llms-txt\n\nConfigure Quarto’s build process in nbs/_quarto.yml:\n\nproject:\n  type: website\n  pre-render:\n    - pysym2md --output_file apilist.txt nbdev\n  post-render:\n    - llms_txt2ctx llms.txt --optional true --save_nbdev_fname llms-ctx-full.txt\n    - llms_txt2ctx llms.txt --save_nbdev_fname llms-ctx.txt\n  resources:\n    - \"*.txt\"\nRemember to manually add a link to the generated apilist.txt in your llms.txt file. Once you commit these changes and rebuild your docs, your library will be ready for deeper, more accurate conversations with LLMs!",
+    "crumbs": [
+      "Tutorials",
+      "How to help LLMs understand your nbdev project"
+    ]
+  },
+  {
+    "objectID": "nbdev.html#learning-from-examples",
+    "href": "nbdev.html#learning-from-examples",
+    "title": "How to help LLMs understand your nbdev project",
+    "section": "Learning from examples",
+    "text": "Learning from examples\nIt is often useful to study how others went about implementing the thing we are working on. The fastcore and FastHTML projects offer a good reference, and you can find additional examples in the llmstxt.site and llmstxt.cloud directories.\nTo see all the necessary changes in one place, here’s a complete example of adding llms.txt to an existing nbdev project.\nProviding the right context opens up new possibilities for AI-assisted development and exploring topics you might want to learn more about. We hope this guide helps you and the users of your library take advantage of these exciting new tools.",
+    "crumbs": [
+      "Tutorials",
+      "How to help LLMs understand your nbdev project"
+    ]
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "The /llms.txt file",
+    "section": "",
+    "text": "Large language models increasingly rely on website information, but face a critical limitation: context windows are too small to handle most websites in their entirety. Converting complex HTML pages with navigation, ads, and JavaScript into LLM-friendly plain text is both difficult and imprecise.\nWhile websites serve both human readers and LLMs, the latter benefit from more concise, expert-level information gathered in a single, accessible location. This is particularly important for use cases like development environments, where LLMs need quick access to programming documentation and APIs.",
+    "crumbs": [
+      "The /llms.txt file"
+    ]
+  },
+  {
+    "objectID": "index.html#background",
+    "href": "index.html#background",
+    "title": "The /llms.txt file",
+    "section": "",
+    "text": "Large language models increasingly rely on website information, but face a critical limitation: context windows are too small to handle most websites in their entirety. Converting complex HTML pages with navigation, ads, and JavaScript into LLM-friendly plain text is both difficult and imprecise.\nWhile websites serve both human readers and LLMs, the latter benefit from more concise, expert-level information gathered in a single, accessible location. This is particularly important for use cases like development environments, where LLMs need quick access to programming documentation and APIs.",
+    "crumbs": [
+      "The /llms.txt file"
+    ]
+  },
+  {
+    "objectID": "index.html#proposal",
+    "href": "index.html#proposal",
+    "title": "The /llms.txt file",
+    "section": "Proposal",
+    "text": "Proposal\n\n\n\nllms.txt logo\n\n\nWe propose adding a /llms.txt markdown file to websites to provide LLM-friendly content. This file offers brief background information, guidance, and links to detailed markdown files.\nllms.txt markdown is human and LLM readable, but is also in a precise format allowing fixed processing methods (i.e. classical programming techniques such as parsers and regex).\nWe furthermore propose that pages on websites that have information that might be useful for LLMs to read provide a clean markdown version of those pages at the same URL as the original page, but with .md appended. (URLs without file names should append index.html.md instead.)\nThe FastHTML project follows these two proposals for its documentation. For instance, here is the FastHTML docs llms.txt. And here is an example of a regular HTML docs page, along with exact same URL but with a .md extension.\nThis proposal does not include any particular recommendation for how to process the llms.txt file, since it will depend on the application. For example, the FastHTML project opted to automatically expand the llms.txt to two markdown files with the contents of the linked URLs, using an XML-based structure suitable for use in LLMs such as Claude. The two files are: llms-ctx.txt, which does not include the optional URLs, and llms-ctx-full.txt, which does include them. They are created using the llms_txt2ctx command line application, and the FastHTML documentation includes information for users about how to use them.\nThe versatility of llms.txt files means they can serve many purposes - from helping developers find their way around software documentation, to giving businesses a way to outline their structure, or even breaking down complex legislation for stakeholders. They’re just as useful for personal websites where they can help answer questions about someone’s CV, for e-commerce sites to explain products and policies, or for schools and universities to provide quick access to their course information and resources.\nNote that all nbdev projects now create .md versions of all pages by default. All Answer.AI and fast.ai software projects using nbdev have had their docs regenerated with this feature. For an example, see the markdown version of fastcore’s docments module.",
+    "crumbs": [
+      "The /llms.txt file"
+    ]
+  },
+  {
+    "objectID": "index.html#format",
+    "href": "index.html#format",
+    "title": "The /llms.txt file",
+    "section": "Format",
+    "text": "Format\nAt the moment the most widely and easily understood format for language models is Markdown. Simply showing where key Markdown files can be found is a great first step. Providing some basic structure helps a language model to find where the information it needs can come from.\nThe llms.txt file is unusual in that it uses Markdown to structure the information rather than a classic structured format such as XML. The reason for this is that we expect many of these files to be read by language models and agents. Having said that, the information in llms.txt follows a specific format and can be read using standard programmatic-based tools.\nThe llms.txt file spec is for files located in the root path /llms.txt of a website (or, optionally, in a subpath). A file following the spec contains the following sections as markdown, in the specific order:\n\nAn H1 with the name of the project or site. This is the only required section\nA blockquote with a short summary of the project, containing key information necessary for understanding the rest of the file\nZero or more markdown sections (e.g. paragraphs, lists, etc) of any type except headings, containing more detailed information about the project and how to interpret the provided files\nZero or more markdown sections delimited by H2 headers, containing “file lists” of URLs where further detail is available\n\nEach “file list” is a markdown list, containing a required markdown hyperlink [name](url), then optionally a : and notes about the file.\n\n\nHere is a mock example:\n# Title\n\n&gt; Optional description goes here\n\nOptional details go here\n\n## Section name\n\n- [Link title](https://link_url): Optional link details\n\n## Optional\n\n- [Link title](https://link_url)\nNote that the “Optional” section has a special meaning—if it’s included, the URLs provided there can be skipped if a shorter context is needed. Use it for secondary information which can often be skipped.",
+    "crumbs": [
+      "The /llms.txt file"
+    ]
+  },
+  {
+    "objectID": "index.html#existing-standards",
+    "href": "index.html#existing-standards",
+    "title": "The /llms.txt file",
+    "section": "Existing standards",
+    "text": "Existing standards\nllms.txt is designed to coexist with current web standards. While sitemaps list all pages for search engines, llms.txt offers a curated overview for LLMs. It can complement robots.txt by providing context for allowed content. The file can also reference structured data markup used on the site, helping LLMs understand how to interpret this information in context.\nThe approach of standardising on a path for the file follows the approach of /robots.txt and /sitemap.xml. robots.txt and llms.txt have different purposes—robots.txt is generally used to let automated tools know what access to a site is considered acceptable, such as for search indexing bots. On the other hand, llms.txt information will often be used on demand when a user explicitly requests information about a topic, such as when including a coding library’s documentation in a project, or when asking a chat bot with search functionality for information. Our expectation is that llms.txt will mainly be useful for inference, i.e. at the time a user is seeking assistance, as opposed to for training. However, perhaps if llms.txt usage becomes widespread, future training runs could take advantage of the information in llms.txt files too.\nsitemap.xml is a list of all the indexable human-readable information available on a site. This isn’t a substitute for llms.txt since it:\n\nOften won’t have the LLM-readable versions of pages listed\nDoesn’t include URLs to external sites, even though they might be helpful to understand the information\nWill generally cover documents that in aggregate will be too large to fit in an LLM context window, and will include a lot of information that isn’t necessary to understand the site.",
+    "crumbs": [
+      "The /llms.txt file"
+    ]
+  },
+  {
+    "objectID": "index.html#example",
+    "href": "index.html#example",
+    "title": "The /llms.txt file",
+    "section": "Example",
+    "text": "Example\nHere’s an example of llms.txt, in this case a cut down version of the file used for the FastHTML project (see also the full version):\n# FastHTML\n\n&gt; FastHTML is a python library which brings together Starlette, Uvicorn, HTMX, and fastcore's `FT` \"FastTags\" into a library for creating server-rendered hypermedia applications.\n\nImportant notes:\n\n- Although parts of its API are inspired by FastAPI, it is *not* compatible with FastAPI syntax and is not targeted at creating API services\n- FastHTML is compatible with JS-native web components and any vanilla JS library, but not with React, Vue, or Svelte.\n\n## Docs\n\n- [FastHTML quick start](https://fastht.ml/docs/tutorials/quickstart_for_web_devs.html.md): A brief overview of many FastHTML features\n- [HTMX reference](https://github.com/bigskysoftware/htmx/blob/master/www/content/reference.md): Brief description of all HTMX attributes, CSS classes, headers, events, extensions, js lib methods, and config options\n\n## Examples\n\n- [Todo list application](https://github.com/AnswerDotAI/fasthtml/blob/main/examples/adv_app.py): Detailed walk-thru of a complete CRUD app in FastHTML showing idiomatic use of FastHTML and HTMX patterns.\n\n## Optional\n\n- [Starlette full documentation](https://gist.githubusercontent.com/jph00/809e4a4808d4510be0e3dc9565e9cbd3/raw/9b717589ca44cedc8aaf00b2b8cacef922964c0f/starlette-sml.md): A subset of the Starlette documentation useful for FastHTML development. \nTo create effective llms.txt files, consider these guidelines:\n\nUse concise, clear language.\nWhen linking to resources, include brief, informative descriptions.\nAvoid ambiguous terms or unexplained jargon.\nRun a tool that expands your llms.txt file into an LLM context file and test a number of language models to see if they can answer questions about your content.",
+    "crumbs": [
+      "The /llms.txt file"
+    ]
+  },
+  {
+    "objectID": "index.html#directories",
+    "href": "index.html#directories",
+    "title": "The /llms.txt file",
+    "section": "Directories",
+    "text": "Directories\nHere are a few directories that list the llms.txt files available on the web:\n\nllmstxt.site\ndirectory.llmstxt.cloud",
+    "crumbs": [
+      "The /llms.txt file"
+    ]
+  },
+  {
+    "objectID": "index.html#integrations",
+    "href": "index.html#integrations",
+    "title": "The /llms.txt file",
+    "section": "Integrations",
+    "text": "Integrations\nVarious tools and plugins are available to help integrate the llms.txt specification into your workflow:\n\nllms_txt2ctx - CLI and Python module for parsing llms.txt files and generating LLM context\nJavaScript Implementation - Sample JavaScript implementation\nvitepress-plugin-llms - VitePress plugin that automatically generates LLM-friendly documentation for the website following the llms.txt specification\ndocusaurus-plugin-llms - Docusaurus plugin for generating LLM-friendly documentation following the llmtxt.org standard\nDrupal LLM Support - A Drupal Recipe providing full support for the llms.txt proposal on any Drupal 10.3+ site\nllms-txt-php - A library for writing and reading llms.txt Markdown files\nVS Code PagePilot Extension - PagePilot is a VS Code Chat participant that automatically loads external context (documentation, APIs, README files) to provide enhanced responses.",
+    "crumbs": [
+      "The /llms.txt file"
+    ]
+  },
+  {
+    "objectID": "index.html#next-steps",
+    "href": "index.html#next-steps",
+    "title": "The /llms.txt file",
+    "section": "Next steps",
+    "text": "Next steps\nThe llms.txt specification is open for community input. A GitHub repository hosts this informal overview, allowing for version control and public discussion. A community discord channel is available for sharing implementation experiences and discussing best practices.",
+    "crumbs": [
+      "The /llms.txt file"
+    ]
+  },
+  {
+    "objectID": "domains.html",
+    "href": "domains.html",
+    "title": "llms.txt in Different Domains",
+    "section": "",
+    "text": "This page has some guidelines and suggestions for how different domains could utilize llms.txt to allow LLMs to better interface with their site if they so choose.\nRemember, when constructing your llms.txt you should “use concise, clear language. When linking to resources, include brief, informative descriptions. Avoid ambiguous terms or unexplained jargon.” Additionally, the best way to determine if your llms.txt works well with LLMs is to test it with them! Here is a minimal way to test Anthropic’s Claude against your llms.txt:\n# /// script\n# requires-python = \"&gt;=3.8\"\n# dependencies = [\n#     \"claudette\",\n#     \"llms-txt\",\n#     \"requests\",\n# ]\n# ///\nfrom claudette import *\nfrom llms_txt import create_ctx\n\nimport requests\n\nmodel = models[1] # Sonnet 3.5\nchat = Chat(model, sp=\"\"\"You are a helpful and concise assistant.\"\"\")\n\nurl = 'your_url/llms.txt'\ntext = requests.get(url).text\nllm_ctx = create_ctx(text)\nchat(llm_ctx + '\\n\\nThe above is necessary context for the conversation.')\n\nwhile True:\n    msg = input('Your question about the site: ')\n    res = chat(msg)\n    print('From Claude:', contents(res))\nThe above script utilizes the relatively new uv syntax for python scripts. If you install uv, you can simply run the above script with uv run test_llms_txt.py and it will handle installing the necessary library dependencies in an isolated python environment. Else you can install the requirements manually and run it like any ordinary python script with python test_llms_txt.py.\n\n\nHere is an example llms.txt that a restaurant could construct for consumption by LLMs:\n# Nate the Great's Grill\n\n&gt; Nate the Great's Grill is a popular destination off of Sesame Street that has been serving the community for over 20 years. We offer the best BBQ for a great price.\n\nHere are our weekly hours:\n\n- Monday - Friday: 9am - 9pm\n- Saturday: 11am - 9pm\n- Sunday: Closed\n\n## Menus\n\n- [Lunch Menu](https://host/lunch.html.md): Our lunch menu served from 11am to 4pm every day.\n- [Dinner Menu](https://host/dinner.html.md): Our dinner menu served from 4pm to 9pm every day.\n\n## Optional\n\n- [Dessert Menu](https://host/dessert.md): A subset of the Starlette docs\nAnd here is an example lunch menu taken from Franklin’s BBQ:\n## By The Pound\n\n| Item              | Price         |\n| --------------    | -----------   |\n| Brisket           | 34            |\n| Pork Spare Ribs   | 30            |\n| Pulled Pork       | 28            |\n\n## Drinks\n\n| Item              | Price         |\n| --------------    | -----------   |\n| Iced Tea          | 3             |\n| Mexican Coke      | 3             |\n\n## Sides\n\n| Item              | Price         |\n| --------------    | -----------   |\n| Potato Salad      | 4             |\n| Slaw              | 4             |",
+    "crumbs": [
+      "Tutorials",
+      "llms.txt in Different Domains"
+    ]
+  },
+  {
+    "objectID": "domains.html#restaurants",
+    "href": "domains.html#restaurants",
+    "title": "llms.txt in Different Domains",
+    "section": "",
+    "text": "Here is an example llms.txt that a restaurant could construct for consumption by LLMs:\n# Nate the Great's Grill\n\n&gt; Nate the Great's Grill is a popular destination off of Sesame Street that has been serving the community for over 20 years. We offer the best BBQ for a great price.\n\nHere are our weekly hours:\n\n- Monday - Friday: 9am - 9pm\n- Saturday: 11am - 9pm\n- Sunday: Closed\n\n## Menus\n\n- [Lunch Menu](https://host/lunch.html.md): Our lunch menu served from 11am to 4pm every day.\n- [Dinner Menu](https://host/dinner.html.md): Our dinner menu served from 4pm to 9pm every day.\n\n## Optional\n\n- [Dessert Menu](https://host/dessert.md): A subset of the Starlette docs\nAnd here is an example lunch menu taken from Franklin’s BBQ:\n## By The Pound\n\n| Item              | Price         |\n| --------------    | -----------   |\n| Brisket           | 34            |\n| Pork Spare Ribs   | 30            |\n| Pulled Pork       | 28            |\n\n## Drinks\n\n| Item              | Price         |\n| --------------    | -----------   |\n| Iced Tea          | 3             |\n| Mexican Coke      | 3             |\n\n## Sides\n\n| Item              | Price         |\n| --------------    | -----------   |\n| Potato Salad      | 4             |\n| Slaw              | 4             |",
+    "crumbs": [
+      "Tutorials",
+      "llms.txt in Different Domains"
+    ]
+  },
+  {
+    "objectID": "ed.html",
+    "href": "ed.html",
+    "title": "ed, the standard text editor",
+    "section": "",
+    "text": "ed, the standard text editor\nIn order to understand how llms.txt can be used with editors and IDEs, let’s look at how ed, the standard text editor, could work (assuming it’s updated to use this proposal). In our example we will look at how the user might then tell ed to retrieve the LLM docs from fastht.ml/docs, and then use the results to write a simple FastHTML web app.\nEven if you use a non-standard editor or IDE such as vscode, Cursor, vim, or Emacs, your software’s interaction with /llms.txt would look similar to this general approach.\n$ ed\n* H\nOur user starts ed and enables helpful error messages (just for the purpose of this walkthru - obviously a real ed user doesn’t need “helpful error messages”).\n* L fastht.ml/docs\nChecking for /llms.txt at fastht.ml/docs...\nFound /llms.txt. Parsing...\nFetching URLs from \"Docs\" section...  Fetching URLs from \"Examples\" section...\nSkipping \"Optional\" section for brevity.\nCreating XML-based context for Claude...  Context created and loaded.\nThe user invokes the hypothetical L (load) command, which in this LLM-enhanced version of ed retrieves and processes the llms.txt file. ed checks for the file (if it didn’t exist, it would fall back to scraping the HTML of the website the old-fashioned way), parses it, fetches the relevant URLs, and creates an XML-based context suitable for Claude (perhaps an ed config file could be used to choose what LLM to use, and would determine how the context is formatted). All of this happens with the characteristic silence of ed, broken only by these reassuring progress messages.\n* x Create a simple FastHTML app which outputs 'Hello, World!', in a &lt;div&gt;.\nAnalyzing context and prompt...\nGenerating FastHTML app...\nApp written to buffer.\nNext, our user invokes the hypothetical x (eXecute AI) command, providing instructions for the LLM to create a simple FastHTML app. In the world of LLM-enhanced ed, this is understood as a request to generate code based on the given prompt and the previously loaded context.\n* n\n5\n* p\nfrom fasthtml.common import *\napp,rt = fast_app()\n@rt\ndef index(): return div(\"Hello, World!\")\nserve()\nThe editor analyzes the loaded context along with the provided prompt, generates the FastHTML app, and writes it to the buffer. The user then views the generated app line count (n) and contents (p), marveling at how much functionality is packed into those 5 lines.\n*w hello_world.py\n5\n*q\nFinally, our user saves the app to a file and quits ed, presumably to run their new FastHTML app and reflect on the unexpected productivity boost provided by their trusty line editor.",
+    "crumbs": [
+      "Editors and IDEs",
+      "`ed`, the standard text editor"
+    ]
+  }
+]
