@@ -6,17 +6,17 @@
 __all__ = ['opt_re', 'named_re', 'search', 'parse_link', 'parse_llms_file', 'get_doc_content', 'mk_ctx', 'get_sizes',
            'create_ctx', 'llms_txt2ctx']
 
-# %% ../nbs/01_core.ipynb #8d2106e4
+# %% ../nbs/01_core.ipynb #484b1085
 import re
 
-# %% ../nbs/01_core.ipynb #153b1507
+# %% ../nbs/01_core.ipynb #38bed7c7
 from fastcore.utils import *
 from fastcore.xml import *
 from fastcore.script import *
 import httpx
 from urllib.parse import urlparse
 
-# %% ../nbs/01_core.ipynb #7af40794
+# %% ../nbs/01_core.ipynb #2cbf4527
 def opt_re(s):
     "Pattern to optionally match `s`"
     return f'(?:{s})?'
@@ -30,7 +30,7 @@ def search(pat, txt, flags=0):
     res = re.search(pat, txt, flags=flags)
     return res.groupdict() if res else None
 
-# %% ../nbs/01_core.ipynb #b5fcdf62
+# %% ../nbs/01_core.ipynb #5e8cbd7d
 def parse_link(txt):
     "Parse a link section from llms.txt"
     title = named_re('title', r'[^\]]+')
@@ -40,18 +40,18 @@ def parse_link(txt):
     pat = fr'-\s*\[{title}\]\({url}\){desc_pat}'
     return re.search(pat, txt).groupdict()
 
-# %% ../nbs/01_core.ipynb #6646d500
+# %% ../nbs/01_core.ipynb #23dee0c8
 def _parse_links(links):
     return [parse_link(l) for l in re.split(r'\n+', links.strip()) if l.strip()]
 
-# %% ../nbs/01_core.ipynb #cfc073ad
+# %% ../nbs/01_core.ipynb #60a080c3
 def _parse_llms(txt):
     start,*rest = re.split(fr'^##\s*(.*?$)', txt, flags=re.MULTILINE)
     d = dict(chunked(rest, 2))
     sects = {k: _parse_links(v) for k,v in d.items()}
     return start.strip(),sects
 
-# %% ../nbs/01_core.ipynb #7c8f74ae
+# %% ../nbs/01_core.ipynb #32b8641d
 def parse_llms_file(txt):
     "Parse llms.txt file contents in `txt` to an `AttrDict`"
     start,sects = _parse_llms(txt)
@@ -64,24 +64,25 @@ def parse_llms_file(txt):
     d['sections'] = sects
     return dict2obj(d)
 
-# %% ../nbs/01_core.ipynb #b4071704
+# %% ../nbs/01_core.ipynb #891efae3
 from fastcore.xml import Sections,Project,Doc
 
-# %% ../nbs/01_core.ipynb #9a6f183e
-def _local_docs_pth(cfg): return cfg.config_path/'_proc'/cfg.doc_path
-def _get_config(): return Config.find('settings.ini')
+# %% ../nbs/01_core.ipynb #39c2321a
+def _local_docs_pth(path): return path/'_proc'
+def _get_config(): return find_file_parents('pyproject.toml')
 
 def get_doc_content(url):
     "Fetch content from local file if in nbdev repo."
-    if (cfg:=_get_config()) and url.startswith(cfg.doc_host):
+    if (path:=_get_config()):
         relative_path = urlparse(url).path.lstrip('/')
-        local_path = _local_docs_pth(cfg) / relative_path
+        local_path = _local_docs_pth(path) / relative_path
         if local_path.exists(): return local_path.read_text()
     return httpx.get(url).text
 
-# %% ../nbs/01_core.ipynb #8dbd64ea
+# %% ../nbs/01_core.ipynb #7639dab2
 def _doc(kw):
     "Create a `Doc` FT object with the text retrieved from `url` as the child, and `kw` as attrs."
+    print(dict(kw))
     url = kw.pop('url')
     txt = get_doc_content(url)
     re_comment = re.compile('^<!--.*-->$', flags=re.MULTILINE)
@@ -89,31 +90,31 @@ def _doc(kw):
     txt = '\n'.join([o for o in txt.splitlines() if not re_comment.search(o) and not re_base64_img.search(o)])
     return Doc(txt, **kw)
 
-# %% ../nbs/01_core.ipynb #6dcfce08
+# %% ../nbs/01_core.ipynb #3e0c2ff6
 def _section(nm, items, n_workers=None):
     "Create a section containing a `Doc` object for each child."
     return ft(nm, *parallel(_doc, items, n_workers=n_workers, threadpool=True))
 
-# %% ../nbs/01_core.ipynb #34fda037
+# %% ../nbs/01_core.ipynb #c0541f10
 def mk_ctx(d, optional=True, n_workers=None):
     "Create a `Project` with a `Section` for each H2 part in `d`, optionally skipping the 'optional' section."
     skip = '' if optional else 'Optional'
     sections = [_section(k, v, n_workers=n_workers) for k,v in d.sections.items() if k!=skip]
     return Project(title=d.title, summary=d.summary)(d.info, *sections)
 
-# %% ../nbs/01_core.ipynb #70566e67
+# %% ../nbs/01_core.ipynb #52143a58
 def get_sizes(ctx):
     "Get the size of each section of the LLM context"
     return {o.tag:{p.title:len(p.children[0]) for p in o.children} for o in ctx.children if hasattr(o,'tag')}
 
-# %% ../nbs/01_core.ipynb #09bde982
+# %% ../nbs/01_core.ipynb #fd3e7ce4
 def create_ctx(txt, optional=False, n_workers=None):
     "A `Project` with a `Section` for each H2 part in `txt`, optionally skipping the 'optional' section."
     d = parse_llms_file(txt)
     ctx = mk_ctx(d, optional=optional, n_workers=n_workers)
     return to_xml(ctx, do_escape=False)
 
-# %% ../nbs/01_core.ipynb #697a0f34
+# %% ../nbs/01_core.ipynb #d636436d
 @call_parse
 def llms_txt2ctx(
     fname:str, # File name to read
