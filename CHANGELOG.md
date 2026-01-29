@@ -2,6 +2,15 @@
 
 <!-- do not remove -->
 
+
+## 0.0.5
+
+### New Features
+
+- `llms_txt2html` ([#63](https://github.com/AnswerDotAI/llms-txt/issues/63))
+- nbdev3
+
+
 ## 0.0.4
 
 ### New Features
