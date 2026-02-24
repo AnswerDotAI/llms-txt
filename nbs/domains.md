@@ -87,9 +87,7 @@ And here is an example lunch menu taken from [Franklin's BBQ](https://franklinbb
 
 ## E-Commerces
 
-## Ecommerce
-
-Online stores can benefit from `llms.txt` when product data is dense, structured, and frequently referenced in shopping queries. LLMs are increasingly asked questions like “which flavor has the least sugar?” or “is this gluten-free?” A well-written `llms.txt` helps models access authoritative product specs, ingredient details, sizing information, and policy rules directly from the source instead of relying on scraped summaries or third-party listings.
+Online stores can also benefit from `llms.txt` when product data is dense, structured, and frequently referenced in shopping queries. LLMs are increasingly asked questions like “which flavor has the least sugar?” or “is this gluten-free?” A well-written `llms.txt` helps models access authoritative product specs, ingredient details, sizing information, and policy rules directly from the source instead of relying on scraped summaries or third-party listings.
 
 Here is an example `llms.txt` that an ecommerce brand could construct for consumption by LLMs:
 
