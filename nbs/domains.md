@@ -56,7 +56,7 @@ Here are our weekly hours:
 
 ## Optional
 
-- [Dessert Menu](https://host/dessert.md): A subset of the Starlette docs
+- [Dessert Menu](https://host/dessert.md): Our dessert menu with cakes, pies, and seasonal specials.
 ```
 
 And here is an example lunch menu taken from [Franklin's BBQ](https://franklinbbq.com/menu):
