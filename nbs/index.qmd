@@ -118,6 +118,7 @@ Here are a few directories that list the `llms.txt` files available on the web:
 
 - [llmstxt.site](https://llmstxt.site/)
 - [directory.llmstxt.cloud](https://directory.llmstxt.cloud/)
+- [llmstxt.work](https://llmstxt.work/)
 
 ## Integrations
 
