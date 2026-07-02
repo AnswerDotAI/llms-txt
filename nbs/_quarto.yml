@@ -1,5 +1,6 @@
 project:
   type: website
+  post-render: post_render.ts
   resources: 
     - "*.txt"
     - "*.html"
