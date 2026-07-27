@@ -59,7 +59,7 @@ Here are our weekly hours:
 - [Dessert Menu](https://host/dessert.md): A subset of the Starlette docs
 ```
 
-And here is an example lunch menu taken from [Franklin's BBQ](https://franklinbbq.com/menu):
+And here is an example lunch menu taken from [Franklin BBQ](https://franklinbbq.com/menu):
 
 ```
 ## By The Pound
