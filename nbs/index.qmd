@@ -131,6 +131,7 @@ Various tools and plugins are available to help integrate the llms.txt specifica
 - [Drupal LLM Support](https://www.drupal.org/project/llm_support) - A Drupal Recipe providing full support for the llms.txt proposal on any Drupal 10.3+ site
 - [`llms-txt-php`](https://github.com/raphaelstolt/llms-txt-php) - A library for writing and reading llms.txt Markdown files
 - [`VS Code PagePilot Extension`](https://dmux.github.io/pagepilot) - PagePilot is a VS Code Chat participant that automatically loads external context (documentation, APIs, README files) to provide enhanced responses.
+- [`agent-readiness-auditor`](https://github.com/asish-singh/agent-readiness-auditor) - CLI that scores any website's readiness for AI agents across nine checks, including llms.txt presence; runs with `npx agent-readiness-auditor <site>` and also ships as an MCP server
 
 ## Next steps
 
