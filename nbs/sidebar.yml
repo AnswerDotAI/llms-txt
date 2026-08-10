@@ -2,6 +2,7 @@ website:
   sidebar:
     contents:
       - index.qmd
+      - changes.qmd
       - section: Code
         contents:
           - 00_intro.ipynb

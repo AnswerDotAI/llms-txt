@@ -1,15 +1,16 @@
 ---
 title: "How to help LLMs understand your nbdev project"
-date: 2024-01-20
+date: 2025-01-20
+date-modified: 2026-08-10
 author: "Radek Osmulski"
-description: "A practical guide to making your nbdev library LLM-friendly using llms.txt, with automation techniques and implementation examples."
+description: "A practical guide to making your nbdev library agent-friendly using llms.txt, with automation techniques and implementation examples."
 ---
 
 ## Overview
 
-This tutorial demonstrates how to add `llms.txt` to your nbdev project, creating a clear interface between your code and LLMs. You'll learn to generate `llms-ctx.txt` and `llms-ctx-full.txt` files and integrate them with your documentation.
+This tutorial demonstrates how to add `llms.txt` to your nbdev project, creating a clear interface between your code and the agents that use it. nbdev already publishes markdown versions of every documentation page by default, so the resources your llms.txt links to are ready-made.
 
-While this guide focuses on `nbdev`, the underlying principles and tools are framework-agnostic and can help make any codebase more accessible to LLMs.
+While this guide focuses on `nbdev`, the underlying principles and tools are framework-agnostic and can help make any codebase more accessible to agents.
 
 Let's explore how to implement this.
 
@@ -79,11 +80,7 @@ Here's an example of what this section might look like:
 
 ### The Optional section
 
-If you'd like to, you can include a section with `Optional` as the heading. This section has a special meaning and provides a mechanism for managing context size. Resources listed in this section appear only in `llms-ctx-full.txt`, while being omitted from `llms-ctx.txt`. This allows the user (be that a human or an agent) to choose the right amount of context based on their use case and the capabilities of the LLM they plan to use.
-
-- `llms.txt`: just the initial section with an optional description and optional resource sections with unexpanded links
-- `llms-ctx.txt`: as above but with links expanded apart from the 'Optional' section
-- `llms-ctx-full.txt`: all sections with expanded links
+If you'd like to, you can include a section with `Optional` as the heading. Use it for secondary resources: things an agent only needs for a deeper dive, and can skip when context is tight.
 
 Here is a small example of the `Optional` section:
 
@@ -94,28 +91,6 @@ Here is a small example of the `Optional` section:
 ```
 
 Your `llms.txt` file is now complete! Time to give yourself a pat on the back for a job well done and let's move on to the next, automated step.
-
-## Generating context files
-
-The [llms-txt](https://llmstxt.org/intro.html) library automates the process of generating context files from your `llms.txt`. It can be used either through its CLI interface or as a Python module.
-
-Using the CLI:
-
-```bash
-llms_txt2ctx llms.txt --save_nbdev_fname llms-ctx.txt
-```
-
-Or via Python:
-
-```python
-from llms_txt import *
-samp = Path('llms-sample.txt').read_text()
-parsed = parse_llms_file(samp)
-```
-
-Both approaches read your `llms.txt` file and retrieve the linked content. This is the process that takes your `llms.txt` and turns it into `llms-ctx.txt` and `llms-ctx-full.txt`.
-
-But there is another very exciting library --- [pysym2md](https://github.com/AnswerDotAI/pysym2md) --- that will allow us to add even more useful information in an automated way.
 
 ## Enhancing context with API reference
 
@@ -152,13 +127,13 @@ To implement this in your project, generate an `apilist.txt`, serve it alongside
 
 ## Configuration
 
-The final step is to configure your nbdev project to generate and serve these context files. This requires three changes:
+The final step is to configure your nbdev project to generate and serve these files. This requires three changes:
 
 1. Add your `llms.txt` file to the `nbs` directory of your project.
 
 2. Add the required dependencies to `settings.ini`:
 ```
-dev_requirements = pysym2md llms-txt
+dev_requirements = pysym2md
 ```
 3. Configure Quarto's build process in `nbs/_quarto.yml`:
 ```
@@ -166,9 +141,6 @@ project:
   type: website
   pre-render:
     - pysym2md --output_file apilist.txt nbdev
-  post-render:
-    - llms_txt2ctx llms.txt --optional true --save_nbdev_fname llms-ctx-full.txt
-    - llms_txt2ctx llms.txt --save_nbdev_fname llms-ctx.txt
   resources:
     - "*.txt"
 ```
@@ -178,7 +150,5 @@ Remember to manually add a link to the generated `apilist.txt` in your `llms.txt
 ## Learning from examples
 
 It is often useful to study how others went about implementing the thing we are working on. The [fastcore](https://fastcore.fast.ai/llms.txt) and [FastHTML](https://fastht.ml/docs/) projects offer a good reference, and you can find additional examples in the [llmstxt.site](https://llmstxt.site/) and [llmstxt.cloud](https://directory.llmstxt.cloud/) directories.
-
-To see all the necessary changes in one place, here's a [complete example](https://github.com/AnswerDotAI/nbdev/pull/1485/files) of adding `llms.txt` to an existing nbdev project.
 
 Providing the right context opens up new possibilities for AI-assisted development and exploring topics you might want to learn more about. We hope this guide helps you and the users of your library take advantage of these exciting new tools.

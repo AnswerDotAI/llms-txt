@@ -7,3 +7,8 @@ website:
   description: "The /llms.txt file, helping language models use your website"
   repo-branch: main
   repo-url: "https://github.com/AnswerDotAI/llms-txt"
+
+format-links:
+  - html
+  - format: commonmark
+    text: Markdown
