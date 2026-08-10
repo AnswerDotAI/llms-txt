@@ -4,7 +4,7 @@ title: "Changes"
 
 ## v2 (August 2026)
 
-The original llms.txt proposal was published in September 2024, when the idea that language models would routinely read websites was still speculative. Since then the community has taken to the proposal far more than we expected. Thousands of sites now publish an llms.txt file, [documentation platforms generate one automatically](https://www.mintlify.com/docs/ai/llmstxt), and coding agents use them reliably. That shift is what this revision reflects.
+The original llms.txt proposal was published in September 2024, when the idea that language models would routinely read websites was still speculative. Since then the community has taken to the proposal far more than I expected. Thousands of sites now publish an llms.txt file, [documentation platforms generate one automatically](https://www.mintlify.com/docs/ai/llmstxt), and coding agents use them reliably. That shift is what this revision reflects.
 
 Adoption brought requests, and the commonest was discoverability. Given a page, how does an agent find its markdown version, or the llms.txt file that covers it, without guessing? v2 answers with standard link relations: `rel="alternate" type="text/markdown"` points to a page's markdown version, and `rel="describedby"` points to the llms.txt file that covers it, provided as HTML `<link>` elements or an HTTP `Link:` header.
 
