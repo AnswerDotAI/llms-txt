@@ -1,6 +1,7 @@
 ---
 title: "The /llms.txt file"
 date: 2024-09-03
+date-modified: 2026-08-10
 author: "Jeremy Howard"
 description: "A proposal to standardise on using an `/llms.txt` file to provide information to help LLMs use a website at inference time."
 image: "/sample.png"
@@ -20,7 +21,13 @@ We propose adding a `/llms.txt` markdown file to websites to provide LLM-friendl
 
 llms.txt markdown is human and LLM readable, but is also in a precise format allowing fixed processing methods (i.e. classical programming techniques such as parsers and regex).
 
-We furthermore propose that pages on websites that have information that might be useful for LLMs to read provide a clean markdown version of those pages at the same URL as the original page, but with `.md` appended. (URLs without file names should append `index.html.md` instead.)
+We furthermore propose that pages on websites that have information that might be useful for LLMs to read provide a clean markdown version of those pages at the same URL as the original page, either with `.md` appended (`page.html.md`) or with the extension replaced by `.md` (`page.md`). (URLs without file names should append `index.html.md` or `index.md` instead.)
+
+To help clients find these files, we recommend using standard link relations: `rel="alternate" type="text/markdown"` points to the markdown version of a page, and `rel="describedby"` points to the llms.txt file that covers it. (An llms.txt file describes all pages under its path, so `/docs/llms.txt` covers everything in `/docs/`.) These links can be provided as HTML `<link>` elements, or as an HTTP `Link:` response header. The header form also works for non-HTML resources, such as the markdown files themselves, and can be added in web server or CDN configuration without modifying any pages. For example:
+
+```
+Link: </docs/page.html.md>; rel="alternate"; type="text/markdown", </docs/llms.txt>; rel="describedby"
+```
 
 The [FastHTML project](https://fastht.ml) follows these two proposals for its documentation. For instance, here is the [FastHTML docs llms.txt](https://www.fastht.ml/docs/llms.txt). And here is an example of a [regular HTML docs page](https://www.fastht.ml/docs/tutorials/by_example.html), along with exact same URL but with [a .md extension](https://www.fastht.ml/docs/tutorials/by_example.html.md).
 

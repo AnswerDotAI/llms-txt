@@ -10,8 +10,8 @@ website:
             href: llmstxt-js.html
       - section: Editors and IDEs
         contents:
-          - ed.md
+          - ed.qmd
       - section: Tutorials
         contents:
-          - domains.md
+          - domains.qmd
           - nbdev.qmd
