@@ -13,7 +13,7 @@ Agents now use websites constantly: a coding agent fetches a library's documenta
 
 But web pages are built for people. An HTML page wraps its information in navigation, ads, and JavaScript, and converting it back into clean text is difficult and imprecise. Context windows, while larger than they were, are still too small for most websites in their entirety, and every wasted token costs time and money. Agents are best served by concise, expert-level information gathered in a single, accessible location.
 
-This is v2 of the proposal, updated based on what we learned from two years of adoption: thousands of sites publish an llms.txt file, documentation platforms generate one automatically, and Chrome's Lighthouse [audits sites for one](https://developer.chrome.com/docs/lighthouse/agentic-browsing/llms-txt) as part of its agentic browsing checks. The [Changes](changes.qmd) page describes what changed since v1, and why.
+This is v2 of the proposal, updated based on what we learned from two years of adoption: thousands of sites publish an llms.txt file, [documentation platforms generate one automatically](https://www.mintlify.com/docs/ai/llmstxt), and Chrome's Lighthouse [audits sites for one](https://developer.chrome.com/docs/lighthouse/agentic-browsing/llms-txt) as part of its agentic browsing checks. The AI labs themselves publish llms.txt files for their own developer docs: [OpenAI](https://developers.openai.com/llms.txt), [Anthropic](https://docs.anthropic.com/llms.txt), and [Gemini](https://ai.google.dev/gemini-api/docs/llms.txt). The [Changes](changes.qmd) page describes what changed since v1, and why.
 
 ## Proposal
 
@@ -115,14 +115,12 @@ Important notes:
 
 - [Starlette full documentation](https://gist.githubusercontent.com/jph00/809e4a4808d4510be0e3dc9565e9cbd3/raw/9b717589ca44cedc8aaf00b2b8cacef922964c0f/starlette-sml.md): A subset of the Starlette documentation useful for FastHTML development. 
 ```
-[comment]: <(Is this it?  or maybe https://host/starlette-sml.md??)> 
-
 To create effective `llms.txt` files, consider these guidelines: 
 
 - Use concise, clear language.
 - When linking to resources, include brief, informative descriptions.
 - Avoid ambiguous terms or unexplained jargon.
-- Run a tool that expands your `llms.txt` file into an LLM context file and test a number of language models to see if they can answer questions about your content.
+- Test your file by asking an agent questions about your content, giving it only your llms.txt as a starting point.
 
 ## Directories
 
@@ -130,10 +128,19 @@ Here are a few directories that list the `llms.txt` files available on the web:
 
 - [llmstxt.site](https://llmstxt.site/)
 - [directory.llmstxt.cloud](https://directory.llmstxt.cloud/)
+- [llmstxthub.com](https://llmstxthub.com/)
 
 ## Integrations
 
-Various tools and plugins are available to help integrate the llms.txt specification into your workflow:
+Many documentation platforms and CMSs can generate an llms.txt file automatically:
+
+- [Mintlify](https://www.mintlify.com/docs/ai/llmstxt) - Docs platform that generates llms.txt and markdown page versions for every site it hosts
+- [GitBook](https://www.gitbook.com/blog/what-is-llms-txt) - Serves an llms.txt file for published docs sites
+- [Yoast SEO](https://yoast.com/features/llms-txt/) - WordPress plugin that generates and maintains an llms.txt file
+- [AIOSEO](https://aioseo.com/features/llms-txt/) - WordPress plugin with an llms.txt generator
+- [Wix](https://support.wix.com/en/article/understanding-your-sites-llmstxt-file) - Generates an llms.txt file for every Wix site
+
+And various libraries and plugins are available to integrate the llms.txt specification into your workflow:
 
 - [JavaScript Implementation](./llmstxt-js.html) - Sample JavaScript implementation
 - [`vitepress-plugin-llms`](https://github.com/okineadev/vitepress-plugin-llms) - VitePress plugin that automatically generates LLM-friendly documentation for the website following the llms.txt specification
@@ -141,6 +148,7 @@ Various tools and plugins are available to help integrate the llms.txt specifica
 - [Drupal LLM Support](https://www.drupal.org/project/llm_support) - A Drupal Recipe providing full support for the llms.txt proposal on any Drupal 10.3+ site
 - [`llms-txt-php`](https://github.com/raphaelstolt/llms-txt-php) - A library for writing and reading llms.txt Markdown files
 - [`VS Code PagePilot Extension`](https://dmux.github.io/pagepilot) - PagePilot is a VS Code Chat participant that automatically loads external context (documentation, APIs, README files) to provide enhanced responses.
+- [`server-llm-txt`](https://github.com/mcp-get/community-servers/tree/main/src/server-llm-txt) - MCP server that lets agents fetch and search llms.txt files
 
 ## Next steps
 
