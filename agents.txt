@@ -1,0 +1,57 @@
+# agents.txt - guidance for AI agents interacting with this repository
+# Spec: https://github.com/barneywohl/agentpress (agents.txt v1.0)
+
+[meta]
+spec_version = 1.0
+project = llms-txt
+maintainer = github@jhoward.fastmail.fm
+contact_for_agents = github@jhoward.fastmail.fm
+last_updated = 2026-05-13
+license = Apache-2.0
+ai_disclosure_required = true
+
+[allowed_actions]
+read_documentation
+read_source_code
+run_tests_in_ci
+file_pull_request
+comment_on_issue
+propose_spec_clarification
+suggest_example
+
+[prohibited_actions]
+merge_to_main
+publish_to_pypi
+modify_secrets
+force_push
+rewrite_history
+impersonate_maintainer
+mass_open_issues
+spam
+
+[requires_human_approval]
+changes_to_spec_text
+changes_touching = nbs/**, llms_txt/**, pyproject.toml
+new_dependencies
+release_tagging
+
+[entry_points]
+agent_guide = agents.txt
+contributing = README.md
+architecture = nbs/index.qmd
+test_command = nbtest
+
+[disclosure]
+pr_label = agent-authored
+commit_trailer = Co-Authored-By
+require_attribution_in_pr_body = true
+
+[scope]
+max_files_per_pr = 10
+max_lines_per_pr = 300
+prefer_single_concern_prs = true
+
+[fyi]
+repo_is_primarily_spec_and_docs = true
+source_of_truth = nbs/index.qmd
+rendered_site = https://llmstxt.org/
