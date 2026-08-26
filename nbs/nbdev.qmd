@@ -140,7 +140,7 @@ dev_requirements = pysym2md
 project:
   type: website
   pre-render:
-    - pysym2md --output_file apilist.txt nbdev
+    - pysym2md --output-file apilist.txt nbdev
   resources:
     - "*.txt"
 ```
