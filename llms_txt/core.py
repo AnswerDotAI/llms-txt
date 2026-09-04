@@ -40,11 +40,11 @@ def parse_link(txt):
     desc = named_re('desc', r'.*')
     desc_pat = opt_re(fr":\s*{desc}")
     pat = fr'-\s*\[{title}\]\({url}\){desc_pat}'
-    return re.search(pat, txt).groupdict()
+    return search(pat, txt)
 
 # %% ../nbs/01_core.ipynb #23dee0c8
 def _parse_links(links):
-    return [parse_link(l) for l in re.split(r'\n+', links.strip()) if l.strip()]
+    return [link for l in re.split(r'\n+', links.strip()) if (link := parse_link(l))]
 
 # %% ../nbs/01_core.ipynb #60a080c3
 def _parse_llms(txt):
@@ -59,9 +59,8 @@ def parse_llms_file(txt):
     start,sects = _parse_llms(txt)
     title = named_re('title', r'.+?$')
     summ = named_re('summary', '.+?$')
-    summ_pat = opt_re(fr"^>\s*{summ}$")
     info = named_re('info', '.*')
-    pat = fr'^#\s*{title}\n+{summ_pat}\n+{info}'
+    pat = fr'^#\s*{title}(?:\n+^>\s*{summ}$)?(?:\n+{info})?$'
     d = search(pat, start, (re.MULTILINE|re.DOTALL))
     d['sections'] = sects
     return dict2obj(d)
