@@ -20,6 +20,4 @@ d = { 'settings': { 'branch': 'main',
                                'llms_txt.core.opt_re': ('core.html#opt_re', 'llms_txt/core.py'),
                                'llms_txt.core.parse_link': ('core.html#parse_link', 'llms_txt/core.py'),
                                'llms_txt.core.parse_llms_file': ('core.html#parse_llms_file', 'llms_txt/core.py'),
-                               'llms_txt.core.search': ('core.html#search', 'llms_txt/core.py')},
-            'llms_txt.miniparse': {},
-            'llms_txt.txt2html': {}}}
+                               'llms_txt.core.search': ('core.html#search', 'llms_txt/core.py')}}}
