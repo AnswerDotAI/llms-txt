@@ -139,6 +139,7 @@ Many documentation platforms and CMSs can generate an llms.txt file automaticall
 - [Yoast SEO](https://yoast.com/features/llms-txt/) - WordPress plugin that generates and maintains an llms.txt file
 - [AIOSEO](https://aioseo.com/features/llms-txt/) - WordPress plugin with an llms.txt generator
 - [Wix](https://support.wix.com/en/article/understanding-your-sites-llmstxt-file) - Generates an llms.txt file for every Wix site
+- [plym](https://plym.io/docs/getting-started/introduction/) - Blogging platform that generates an llms.txt file and markdown page versions for every blog 
 
 And various libraries and plugins are available to integrate the llms.txt specification into your workflow:
 
