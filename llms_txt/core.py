@@ -84,7 +84,6 @@ def get_doc_content(url):
 # %% ../nbs/01_core.ipynb #7639dab2
 def _doc(kw):
     "Create a `Doc` FT object with the text retrieved from `url` as the child, and `kw` as attrs."
-    print(dict(kw))
     url = kw.pop('url')
     txt = get_doc_content(url)
     re_comment = re.compile('^<!--.*-->$', flags=re.MULTILINE)
