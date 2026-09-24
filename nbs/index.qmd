@@ -149,6 +149,7 @@ And various libraries and plugins are available to integrate the llms.txt specif
 - [`llms-txt-php`](https://github.com/raphaelstolt/llms-txt-php) - A library for writing and reading llms.txt Markdown files
 - [`VS Code PagePilot Extension`](https://dmux.github.io/pagepilot) - PagePilot is a VS Code Chat participant that automatically loads external context (documentation, APIs, README files) to provide enhanced responses.
 - [`server-llm-txt`](https://github.com/mcp-get/community-servers/tree/main/src/server-llm-txt) - MCP server that lets agents fetch and search llms.txt files
+- [llms.txt Validator](https://llms-txt-validator.dev/) - Checks an llms.txt against the spec and fetches every linked URL to catch broken links; also available as an API and MCP server
 
 ## Next steps
 
