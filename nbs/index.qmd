@@ -138,6 +138,7 @@ Many documentation platforms and CMSs can generate an llms.txt file automaticall
 - [GitBook](https://www.gitbook.com/blog/what-is-llms-txt) - Serves an llms.txt file for published docs sites
 - [Yoast SEO](https://yoast.com/features/llms-txt/) - WordPress plugin that generates and maintains an llms.txt file
 - [AIOSEO](https://aioseo.com/features/llms-txt/) - WordPress plugin with an llms.txt generator
+- [Superflow llms.txt Generator](https://usesuperflow.ai/tools/llms-txt-generator?utm_source=llms-txt&utm_medium=directory&utm_campaign=free-tools) - Free no-login web tool that generates an llms.txt for any URL. Also available as MCP/HTTP.
 - [Wix](https://support.wix.com/en/article/understanding-your-sites-llmstxt-file) - Generates an llms.txt file for every Wix site
 
 And various libraries and plugins are available to integrate the llms.txt specification into your workflow:
