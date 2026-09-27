@@ -147,6 +147,7 @@ And various libraries and plugins are available to integrate the llms.txt specif
 - [`docusaurus-plugin-llms`](https://github.com/rachfop/docusaurus-plugin-llms) - Docusaurus plugin for generating LLM-friendly documentation following the llmtxt.org standard
 - [Drupal LLM Support](https://www.drupal.org/project/llm_support) - A Drupal Recipe providing full support for the llms.txt proposal on any Drupal 10.3+ site
 - [`llms-txt-php`](https://github.com/raphaelstolt/llms-txt-php) - A library for writing and reading llms.txt Markdown files
+- [`llmstxt-tools`](https://github.com/astra-intelligence/llmstxt-tools) - CLI tool to check, validate, and generate llms.txt files; checks for file validity, link health, and spec compliance. Also available as a [web API and checker](https://github.com/astra-intelligence/llmstxt-tools#web-interface).
 - [`VS Code PagePilot Extension`](https://dmux.github.io/pagepilot) - PagePilot is a VS Code Chat participant that automatically loads external context (documentation, APIs, README files) to provide enhanced responses.
 - [`server-llm-txt`](https://github.com/mcp-get/community-servers/tree/main/src/server-llm-txt) - MCP server that lets agents fetch and search llms.txt files
 
