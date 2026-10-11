@@ -130,6 +130,12 @@ Here are a few directories that list the `llms.txt` files available on the web:
 - [directory.llmstxt.cloud](https://directory.llmstxt.cloud/)
 - [llmstxthub.com](https://llmstxthub.com/)
 
+## Implementations
+
+Notable production sites implementing the `llms.txt` specification:
+
+- [Pressonify.ai](https://pressonify.ai/llms.txt) - AI-powered press release platform with a 3-tier llms.txt strategy ([`llms.txt`](https://pressonify.ai/llms.txt), [`llms-full.txt`](https://pressonify.ai/llms-full.txt), [`llms-lite.txt`](https://pressonify.ai/llms-lite.txt)), plus section-specific feeds at [`/news/llms.txt`](https://pressonify.ai/news/llms.txt) and [`/wiki/llms.txt`](https://pressonify.ai/wiki/llms.txt), a [knowledge graph](https://pressonify.ai/knowledge-graph.json), and an MCP server with OAuth 2.0 for agent discovery.
+
 ## Integrations
 
 Many documentation platforms and CMSs can generate an llms.txt file automatically:
