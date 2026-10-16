@@ -139,6 +139,7 @@ Many documentation platforms and CMSs can generate an llms.txt file automaticall
 - [Yoast SEO](https://yoast.com/features/llms-txt/) - WordPress plugin that generates and maintains an llms.txt file
 - [AIOSEO](https://aioseo.com/features/llms-txt/) - WordPress plugin with an llms.txt generator
 - [Wix](https://support.wix.com/en/article/understanding-your-sites-llmstxt-file) - Generates an llms.txt file for every Wix site
+- [AnswerRail](https://answerrail.com/geo/generate-llms-txt-shopify-wordpress-webflow) - Generates and hosts `llms.txt`, `llms-full.txt`, and Markdown page versions at the edge for Shopify, WordPress, Webflow, static HTML, and Next.js sites
 
 And various libraries and plugins are available to integrate the llms.txt specification into your workflow:
 
@@ -149,6 +150,7 @@ And various libraries and plugins are available to integrate the llms.txt specif
 - [`llms-txt-php`](https://github.com/raphaelstolt/llms-txt-php) - A library for writing and reading llms.txt Markdown files
 - [`VS Code PagePilot Extension`](https://dmux.github.io/pagepilot) - PagePilot is a VS Code Chat participant that automatically loads external context (documentation, APIs, README files) to provide enhanced responses.
 - [`server-llm-txt`](https://github.com/mcp-get/community-servers/tree/main/src/server-llm-txt) - MCP server that lets agents fetch and search llms.txt files
+- [`test-ai-ready`](https://github.com/quitegoodproject/test-ai-ready) - CLI (`npx test-ai-ready <url>`) and standalone Cloudflare Worker for generating `llms.txt` files and auditing AI crawler readiness
 
 ## Next steps
 
