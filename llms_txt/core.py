@@ -34,17 +34,19 @@ def search(pat, txt, flags=0):
 
 # %% ../nbs/01_core.ipynb #5e8cbd7d
 def parse_link(txt):
-    "Parse a link section from llms.txt"
+    "Parse a link section from llms.txt, returning `None` if `txt` is not a link"
     title = named_re('title', r'[^\]]+')
     url = named_re('url', r'[^\)]+')
     desc = named_re('desc', r'.*')
     desc_pat = opt_re(fr":\s*{desc}")
     pat = fr'-\s*\[{title}\]\({url}\){desc_pat}'
-    return re.search(pat, txt).groupdict()
+    res = re.search(pat, txt)
+    return res.groupdict() if res else None
 
 # %% ../nbs/01_core.ipynb #23dee0c8
 def _parse_links(links):
-    return [parse_link(l) for l in re.split(r'\n+', links.strip()) if l.strip()]
+    "Parse the links in a section, skipping list items that aren't links"
+    return [o for l in re.split(r'\n+', links.strip()) if l.strip() and (o:=parse_link(l))]
 
 # %% ../nbs/01_core.ipynb #60a080c3
 def _parse_llms(txt):

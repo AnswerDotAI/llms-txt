@@ -26,6 +26,26 @@ Optional details go here
         self.assertEqual(len(result['sections']['Section name']), 1)
         self.assertEqual(len(result['sections']['Optional']), 1)
 
+
+    def test_non_link_items_skipped(self):
+        txt = """# Title
+
+> Description
+
+## Notes
+
+- Plain note without a link
+
+## Docs
+
+- [Guide](https://example.com/guide.md): How to start
+- Another plain note
+"""
+        result = parse_llms_txt(txt)
+        self.assertEqual(result['sections']['Notes'], [])
+        self.assertEqual(len(result['sections']['Docs']), 1)
+        self.assertEqual(result['sections']['Docs'][0]['title'], 'Guide')
+
     def test_multiple_links(self):
         txt = """# Another Title
 
