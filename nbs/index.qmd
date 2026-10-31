@@ -149,6 +149,7 @@ And various libraries and plugins are available to integrate the llms.txt specif
 - [`llms-txt-php`](https://github.com/raphaelstolt/llms-txt-php) - A library for writing and reading llms.txt Markdown files
 - [`VS Code PagePilot Extension`](https://dmux.github.io/pagepilot) - PagePilot is a VS Code Chat participant that automatically loads external context (documentation, APIs, README files) to provide enhanced responses.
 - [`server-llm-txt`](https://github.com/mcp-get/community-servers/tree/main/src/server-llm-txt) - MCP server that lets agents fetch and search llms.txt files
+- [`signbee`](https://signb.ee/llms.txt) - AI-native document signing API exposing [`/llms.txt`](https://signb.ee/llms.txt) and [`/llms-full.txt`](https://signb.ee/llms-full.txt) alongside an [MCP server](https://github.com/signbee/mcp) and [Agent Skill](https://github.com/signbee/skill) for two-party SHA-256 certified e-signing
 
 ## Next steps
 
