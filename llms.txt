@@ -1,0 +1,13 @@
+# llms-txt
+
+> The /llms.txt file, helping language models use your website
+
+## Core Resources
+
+- [GitHub Repository](https://github.com/AnswerDotAI/llms-txt): Source code, documentation, and issue tracker.
+- [Website](http://llmstxt.org/): Official website and documentation.
+
+## AI Agent & LLM Indexing
+
+- Structured following the standard /llms.txt specification for AI search engines and coding assistants.
+- Validated via [AccessGuard AI-Readiness Suite](https://ronanchnlps-bit.github.io/).
