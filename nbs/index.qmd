@@ -129,6 +129,7 @@ Here are a few directories that list the `llms.txt` files available on the web:
 - [llmstxt.site](https://llmstxt.site/)
 - [directory.llmstxt.cloud](https://directory.llmstxt.cloud/)
 - [llmstxthub.com](https://llmstxthub.com/)
+- [AI Dev Radar GEO & llms.txt Index](https://onlywanggg.github.io/ai-dev-radar/geo/)
 
 ## Integrations
 
